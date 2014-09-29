@@ -18,7 +18,7 @@ public class Presenter {
      * @param append the type of value being asked for.
      * @return the integer input from the user.
      */
-    public int promptBasicInteger(String append) {
+    private int promptBasicInteger(String append) {
 
         System.out.println("Please input " + append);
 
@@ -31,6 +31,14 @@ public class Presenter {
         }
 
         return i == 0 ? promptBasicInteger(append + " properly") : i;
+    }
+
+    public int promptRowSelection() {
+        return promptBasicInteger("the number of rows.");
+    }
+
+    public int promptNumPieces() {
+        return promptBasicInteger("the number of pieces.");
     }
 
 }
