@@ -5,7 +5,7 @@ public class Manager {
 	private int[] gameBoard = new int[3];
 	
 	
-	public boolean removePieces(int row, int toRemove)
+	public void removePieces(int row, int toRemove)
 	{
 		if(row > 3 || row < 0)
 		{
@@ -23,8 +23,8 @@ public class Manager {
 				throw new IllegalArgumentException("Tried to remove too many pieces");
 			}
 		}
-		
-		return false;
 	}
+	
+	
 	
 }
