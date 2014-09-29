@@ -1,5 +1,17 @@
 package csc130nim;
 
-public class HumanPlayer implements Player {
+public class HumanPlayer extends Player {
+
+	@Override
+	public int getRow() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getNumberToRemove() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
