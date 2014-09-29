@@ -15,7 +15,6 @@ public class Presenter {
             new BufferedReader(new InputStreamReader(System.in));
 
     /**
-     *
      * @param append the type of value being asked for.
      * @return the integer input from the user.
      */
@@ -24,7 +23,6 @@ public class Presenter {
         System.out.println("Please input " + append);
 
         int i = 0;
-
         try {
             i = Integer.parseInt(reader.readLine());
         } catch (IOException e) {
@@ -42,11 +40,24 @@ public class Presenter {
         return promptBasicInteger("the number of pieces.");
     }
 
+    public int promptMenuSelection() {
+        return promptBasicInteger("the menu selection.");
+    }
+
     public void printOpeningMenu() {
         new PrintWriter(System.out)
                 .printf("1. Player vs. Player")
                 .printf("2. Player vs. AI")
                 .printf("3. AI vs. AI")
                 .println("0. Exit");
+    }
+
+    enum MenuOptions {
+        PlayerVsPlayer,
+        PlayerVsAI,
+        AIVsAI,
+        Exit;
+
+        public abstract void execute();
     }
 }
