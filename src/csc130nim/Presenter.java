@@ -50,6 +50,11 @@ public class Presenter {
             System.out.println(current.getRetValue() + ". " + current.getReadableName());
         }
     }
+    
+    public void printBoard(int[] board)
+    {
+    	System.out.println(board[0] + ", " + board[1] + ", " + board[2]);
+    }
 
     enum MenuOption {
         PvP("Player vs. Player", 1),
@@ -80,4 +85,5 @@ public class Presenter {
 
         //        public abstract void execute();
     }
+
 }
