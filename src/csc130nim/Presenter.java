@@ -44,18 +44,40 @@ public class Presenter {
     }
 
     public void printOpeningMenu() {
-        MenuOptions[] enumValues = MenuOptions.values();
+        MenuOption[] enumValues = MenuOption.values();
         for (int i = 0; i < enumValues.length; i++) {
-            System.out.println((i+1) + ". " + enumValues[i]);
+            MenuOption current = enumValues[i];
+            System.out.println(current.getRetValue() + ". " + current.getReadableName());
         }
     }
 
-    enum MenuOptions {
-        PlayerVsPlayer,
-        PlayerVsAI,
-        AIVsAI,
-        Exit;
+    enum MenuOption {
+        PvP("Player vs. Player", 1),
+        PvE("Player vs. AI", 2), // Player versus Engine
+        EvE("AI vs. AI", 3),
+        Exit("Exit", 0);
 
-//        public abstract void execute();
+        private final String readableName;
+        private final int retValue;
+
+        MenuOption(String legibleName, int value) {
+            this.readableName = legibleName;
+            this.retValue = value;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString();
+        }
+
+        public String getReadableName() {
+            return readableName;
+        }
+
+        public int getRetValue() {
+            return retValue;
+        }
+
+        //        public abstract void execute();
     }
 }
