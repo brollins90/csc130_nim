@@ -3,6 +3,7 @@ package csc130nim;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /**
  * Created by Stephen on 9/29/2014.
@@ -41,4 +42,11 @@ public class Presenter {
         return promptBasicInteger("the number of pieces.");
     }
 
+    public void printOpeningMenu() {
+        new PrintWriter(System.out)
+                .printf("1. Player vs. Player")
+                .printf("2. Player vs. AI")
+                .printf("3. AI vs. AI")
+                .println("0. Exit");
+    }
 }
