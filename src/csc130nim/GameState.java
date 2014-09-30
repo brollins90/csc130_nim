@@ -14,4 +14,11 @@ public class GameState implements Comparable<GameState> {
 		} 
 		return compareVal;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof GameState)
+			return this.compareTo((GameState)obj) == 0;
+		return false;
+	}
 }
