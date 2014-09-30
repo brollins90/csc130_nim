@@ -1,11 +1,10 @@
 package csc130nim;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 import java.io.IOException;
-
-import csc130nim.MenuOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Manager {
 	
@@ -100,11 +99,14 @@ public class Manager {
         
         try {
 			int choice = handleInput(Player.reader.readLine());
-			if(choice >= 0 && choice < 4)
-			{
-				enumValues[choice].execute(this);
-			}
-			else
+			if(choice >= 0 && choice < 4) {
+                List<MenuOption> collectedOptions = Arrays.asList(enumValues)
+                        .stream()
+                        .filter(x -> x.getRetValue() == choice)
+                        .collect(Collectors.toList());
+//                collectedOptions.forEach(System.out::println);
+                collectedOptions.get(0).execute(this);
+            } else
 			{
 				System.err.println("Bad input");
 			}
