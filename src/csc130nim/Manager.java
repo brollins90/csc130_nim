@@ -1,5 +1,7 @@
 package csc130nim;
 
+import java.io.IOException;
+
 public class Manager {
 	
 	public static int[] gameBoard = new int[3];
@@ -31,14 +33,24 @@ public class Manager {
             MenuOption current = enumValues[i];
             System.out.println(current.getRetValue() + ". " + current.getReadableName());
         }
+        
+        try {
+			int choice = handleInput(Player.reader.readLine());
+			enumValues[enumValues.length-1-choice].execute(this);
+		} catch (IOException e) {
+			System.err.println("The starter input was not parseable.");
+		}
     }
 
-    public void removePieces(int row, int toRemove)
+    private int handleInput(String readLine) {
+		// TODO Auto-generated method stub
+		return Integer.parseInt(readLine);
+	}
+
+	public void removePieces(int row, int toRemove)
 	{
 		if(row > 3 || row < 0)
-		{
 			throw new IllegalArgumentException("Tried to pick a nonexistant row.");
-		}
 		else
 		{
 			int zeroRow = row - 1; //Zero based row
