@@ -8,11 +8,11 @@ public class Tester {
 
     public void testPrompt() {
 
-        Presenter presenter = new Presenter();
+        GameStarter testCon = new GameStarter();
+        Player player = new HumanPlayer();
 
-        presenter.printOpeningMenu();
-        System.out.println(presenter.promptMenuSelection());
-
+        System.out.println(player.getRow());
+        System.out.println(player.getNumberToRemove());
     }
 
 }

@@ -6,6 +6,6 @@ public class Controller {
 
         new Tester().testPrompt();
         Manager manage = new Manager();
-        manage.playGame();
+        //manage.playGame();
 	}
 }
