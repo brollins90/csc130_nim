@@ -8,7 +8,7 @@ public class Tester {
 
     public void testPrompt() {
 
-        Controller testCon = new Controller();
+        GameStarter testCon = new GameStarter();
         Player player = new HumanPlayer();
 
         System.out.println(player.getRow());
