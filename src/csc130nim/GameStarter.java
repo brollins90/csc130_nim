@@ -1,6 +1,6 @@
 package csc130nim;
 
-public class Controller {
+public class GameStarter {
 
 	public static void main(String[] args) {
 
