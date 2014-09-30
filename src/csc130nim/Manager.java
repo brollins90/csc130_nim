@@ -23,7 +23,18 @@ public class Manager {
 		
 		while(playing) {
 			Player current = (playerOneCurrent) ? p1 : p2;
-			removePieces(current.getRow(), current.getNumberToRemove());
+			
+			boolean completedMove = false;
+			
+			while(!completedMove) {
+				try {
+					removePieces(current.getRow(), current.getNumberToRemove());
+					completedMove = true;
+				} catch (Exception e) {
+					System.out.println("Invalid selection, try again.");
+				}
+			}
+			
 		}
 	}
 
