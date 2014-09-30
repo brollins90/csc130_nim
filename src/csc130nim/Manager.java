@@ -2,6 +2,7 @@ package csc130nim;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Manager {
 	
@@ -9,6 +10,8 @@ public class Manager {
 	
 	private ArrayList<int[]> gameTurns;
 	private Presenter present;
+	private boolean PlayerOne;
+	private boolean PlayerOneFirst;
 	
 	public Manager()
 	{
@@ -22,9 +25,14 @@ public class Manager {
 		
 		setBoard(3, 5, 7);
 		
+		Random rand = new Random();
+		PlayerOne = (rand.nextInt(2) == 1) ? true : false;
+		PlayerOneFirst = PlayerOne;
+		
 		while(running)
 		{
 			present.printBoard(gameBoard);
+			present.printTurn(PlayerOne);
 			int row = present.promptRowSelection();
 			int pieces = present.promptNumPieces();
 			
@@ -66,6 +74,7 @@ public class Manager {
 			{
 				gameBoard[zeroRow] -= toRemove;
 				gameTurns.add(gameBoard.clone());
+				PlayerOne = !PlayerOne;
 			}
 			else
 			{
@@ -85,11 +94,11 @@ public class Manager {
 	
 	public void testReturnTurns()
 	{
-		int i = 1;
+		boolean player = (PlayerOneFirst) ? true : false;
 		for(int[] turn : gameTurns)
-		{
-			System.out.println(i + ": " + turn[0] + ", " + turn[1] + ", " + turn[2]);
-			i++;
+		{			
+			System.out.println(((player) ? 1 : 2) + ": " + turn[0] + ", " + turn[1] + ", " + turn[2]);
+			player = !player;
 		}
 	}
 	

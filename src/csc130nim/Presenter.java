@@ -55,6 +55,11 @@ public class Presenter {
     {
     	System.out.println(board[0] + ", " + board[1] + ", " + board[2]);
     }
+    
+    public void printTurn(boolean PlayerOne)
+    {
+    	System.out.println((PlayerOne) ? "Player One: " : "Player Two: ");
+    }
 
     enum MenuOption {
         PvP("Player vs. Player", 1),
