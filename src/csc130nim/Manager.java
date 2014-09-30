@@ -24,9 +24,16 @@ public class Manager {
 			removePieces(current.getRow(), current.getNumberToRemove());
 		}
 	}
-	
-	
-	public void removePieces(int row, int toRemove)
+
+    public void printOpeningMenu() {
+        MenuOption[] enumValues = MenuOption.values();
+        for (int i = 0; i < enumValues.length; i++) {
+            MenuOption current = enumValues[i];
+            System.out.println(current.getRetValue() + ". " + current.getReadableName());
+        }
+    }
+
+    public void removePieces(int row, int toRemove)
 	{
 		if(row > 3 || row < 0)
 		{
