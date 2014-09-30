@@ -1,6 +1,11 @@
 package csc130nim;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 import java.io.IOException;
+
+import csc130nim.MenuOption;
 
 public class Manager {
 	
@@ -10,6 +15,49 @@ public class Manager {
 		NewGame();
 	}
 	
+	private ArrayList<int[]> gameTurns = new ArrayList<>();
+	
+//	public void playGame()
+//	{
+//		boolean running = true;
+//		
+//		Random rand = new Random();
+//		PlayerOne = (rand.nextInt(2) == 1) ? true : false;
+//		PlayerOneFirst = PlayerOne;
+//		
+//		while(running)
+//		{
+//			present.printBoard(gameBoard);
+//			present.printTurn(PlayerOne);
+//			int row = present.promptRowSelection();
+//			int pieces = present.promptNumPieces();
+//			
+//			try
+//			{
+//				removePieces(row, pieces);
+//				if(GameEnded())
+//				{
+//					testReturnTurns();
+//					running = false;
+//				}
+//			}
+//			catch(IllegalArgumentException ex)
+//			{
+//				System.err.println(ex);
+//			}
+//		}
+//	}
+	
+	public void setBoard(int one, int two, int three)
+	{
+		gameBoard[0] = one;
+		gameBoard[1] = two;
+		gameBoard[2] = three;
+		
+		gameTurns.add(gameBoard.clone());
+	}
+	
+
 	public void NewGame() {
 		gameBoard[0] = 3;
 		gameBoard[1] = 5;
@@ -35,6 +83,11 @@ public class Manager {
 				}
 			}
 			
+			if(GameEnded())
+			{
+				testReturnTurns();
+				playing = false;
+			}
 		}
 	}
 
@@ -47,7 +100,14 @@ public class Manager {
         
         try {
 			int choice = handleInput(Player.reader.readLine());
-			enumValues[enumValues.length-1-choice].execute(this);
+			if(choice >= 0 && choice < 4)
+			{
+				enumValues[choice].execute(this);
+			}
+			else
+			{
+				System.err.println("Bad input");
+			}
 		} catch (IOException e) {
 			System.err.println("The starter input was not parseable.");
 		}
@@ -68,6 +128,8 @@ public class Manager {
 			if(toRemove <= gameBoard[zeroRow] && toRemove > 0)
 			{
 				gameBoard[zeroRow] -= toRemove;
+				gameTurns.add(gameBoard.clone());
+//				PlayerOne = !PlayerOne;
 			}
 			else
 			{
@@ -76,6 +138,23 @@ public class Manager {
 		}
 	}
 	
+	public boolean GameEnded()
+	{
+		if(gameBoard[0] == 0 && gameBoard[1] == 0 && gameBoard[2] == 0)
+		{
+			return true;
+		}
+		return false;
+	}
 	
+	public void testReturnTurns()
+	{
+		boolean player = true;
+		for(int[] turn : gameTurns)
+		{			
+			System.out.println(((player) ? 1 : 2) + ": " + turn[0] + ", " + turn[1] + ", " + turn[2]);
+			player = !player;
+		}
+	}
 	
 }
