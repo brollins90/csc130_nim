@@ -4,7 +4,10 @@ public class GameStarter {
 
 	public static void main(String[] args) {
 
-        new Tester().testPrompt();
-
-	}
+        boolean testing = false;
+        if (testing)
+            new Tester().testPrompt();
+        else
+            System.out.println("No real game exists yet.");
+    }
 }
