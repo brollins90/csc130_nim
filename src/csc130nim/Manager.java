@@ -3,6 +3,7 @@ package csc130nim;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.awt.SecondaryLoop;
 import java.io.IOException;
 
 import csc130nim.MenuOption;
@@ -61,7 +62,10 @@ public class Manager {
 	public void NewGame() {
 		gameBoard[0] = 3;
 		gameBoard[1] = 5;
-		gameBoard[2] = 7;		
+		gameBoard[2] = 7;
+		
+		gameTurns = new ArrayList<>();
+		gameTurns.add(gameBoard.clone());
 	}
 	
 	public void StartGame(Player p1, Player p2) {
@@ -85,7 +89,7 @@ public class Manager {
 			
 			if(GameEnded())
 			{
-				testReturnTurns();
+				calculateStates();
 				playing = false;
 			}
 		}
@@ -154,6 +158,35 @@ public class Manager {
 		{			
 			System.out.println(((player) ? 1 : 2) + ": " + turn[0] + ", " + turn[1] + ", " + turn[2]);
 			player = !player;
+		}
+	}
+	
+	public void calculateStates()
+	{
+		boolean firstPlayer = true;
+		boolean firstWin = (gameTurns.size() % 2 == 0 ? true : false);
+		int secondTurn = gameTurns.size() / 2;
+		int firstTurn = (gameTurns.size() % 2 == 0 ? secondTurn : (gameTurns.size() / 2) + 1);
+		
+		/*//This chunk will add the first turn to a hashmap called gameKnowledge, or wherever we decide to store the data.
+		if(gameKnowledge.get(gameTurns.get(0)) !=  null)
+		{
+			gameKnowledge.get(gameTurns.get(0)).addValue(0d);
+		}
+		*/
+		//Test code
+		System.out.println(((firstPlayer) ? 1 : 2) + ": " + gameTurns.get(0)[0] + ", " + gameTurns.get(0)[1] + ", " + gameTurns.get(0)[2]);
+		System.out.println("Value: " + 0);
+		
+		for(int i = 1; i < gameTurns.size(); i++)
+		{			
+			firstPlayer = !firstPlayer;
+			int numerator = i/2 + 1;
+			double denomerator = ((double)(firstPlayer ? firstTurn : secondTurn));
+			double value = ((i/2 + 1) / ((double)(firstPlayer ? firstTurn : secondTurn))) * (firstPlayer == firstWin ? 1 : -1);
+			//Here is where you would store the states into the machine learning.
+			System.out.println(((firstPlayer) ? 1 : 2) + ": " + gameTurns.get(i)[0] + ", " + gameTurns.get(i)[1] + ", " + gameTurns.get(i)[2]);
+			System.out.println("Value: " + value);
 		}
 	}
 	
