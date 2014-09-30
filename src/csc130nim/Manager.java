@@ -10,8 +10,8 @@ public class Manager {
 	
 	public void NewGame() {
 		gameBoard[0] = 3;
-		gameBoard[0] = 5;
-		gameBoard[0] = 7;		
+		gameBoard[1] = 5;
+		gameBoard[2] = 7;		
 	}
 	
 	public void StartGame(Player p1, Player p2) {

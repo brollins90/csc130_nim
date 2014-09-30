@@ -6,6 +6,8 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public int getRow() {
+		printGameBoard();
+		
         int rowChoice = promptBasicInteger("the row of choice");
         return rowChoice;
     }
@@ -32,5 +34,28 @@ public class HumanPlayer extends Player {
         }
 
         return i;
+    }
+    
+    private void printGameBoard() {
+    	String line = "";
+    	line += "1:";
+    	for (int i = 0; i < Manager.gameBoard[0]; i++) {
+    		line += " X";
+    	}
+    	line += "\n";
+    	
+    	line += "2:";
+    	for (int i = 0; i < Manager.gameBoard[1]; i++) {
+    		line += " X";
+    	}
+    	line += "\n";
+    	
+    	line += "3:";
+    	for (int i = 0; i < Manager.gameBoard[2]; i++) {
+    		line += " X";
+    	}
+    	line += "\n";
+    	
+    	System.out.println(line);
     }
 }
