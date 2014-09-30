@@ -1,9 +1,5 @@
 package csc130nim;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.awt.SecondaryLoop;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,9 +107,12 @@ public class Manager {
                         .stream()
                         .filter(x -> x.getRetValue() == choice)
                         .collect(Collectors.toList());
+
+                collectedOptions.addAll(Arrays.asList(enumValues));
 //                collectedOptions.forEach(System.out::println);
                 collectedOptions.get(0).execute(this);
-            } else
+            }
+            else
 			{
 				System.err.println("Bad input");
 			}
