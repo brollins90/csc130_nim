@@ -17,7 +17,6 @@ public class Manager implements Serializable{
 	
 	public static int[] gameBoard = new int[3];
 	public HashMap<int[], StateContainer> gameKnowledge = new HashMap<>();
-	public static Brain brain;
 	
 	public Manager() {
 		NewGame();
@@ -200,9 +199,6 @@ public class Manager implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		brain = new Brain();
-		
 	}
 	
 	public void save()

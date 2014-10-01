@@ -8,7 +8,7 @@ public class StateContainer extends ArrayList<State> implements Serializable{
 	@Override
 	public boolean contains(Object state)
 	{
-		int[] board = new int[3];
+		//int[] board = new int[3];
 		for(State s : this)
 		{
 			if(state.getClass() == s.getClass())
@@ -19,13 +19,13 @@ public class StateContainer extends ArrayList<State> implements Serializable{
 				}
 			}
 			
-			else if(state.getClass() == board.getClass())
-			{
-				if(s.sameBoard((int[])state))
-				{
-					return true;
-				}
-			}
+			//else if(state.getClass() == board.getClass())
+			//{
+			//	if(s.sameBoard((int[])state))
+			//	{
+			//		return true;
+			//	}
+			//}
 		}
 		
 		return false;
@@ -43,5 +43,4 @@ public class StateContainer extends ArrayList<State> implements Serializable{
 		
 		return toReturn;
 	}
-	
 }

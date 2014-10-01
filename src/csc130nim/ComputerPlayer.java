@@ -3,9 +3,7 @@ package csc130nim;
 import java.util.Stack;
 
 public class ComputerPlayer extends Player {
-	
-	private static Brain brain;
-	
+
 	public ComputerPlayer() {
 	}
 
