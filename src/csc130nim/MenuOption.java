@@ -30,6 +30,23 @@ public enum MenuOption {
 				manager.StartGame(new RandomPlayer(), new RandomPlayer());
 			}
 		}
+	}, // Random v Random
+    RvR("Rand vs. Rand", 4) {
+		@Override
+		public void execute(Manager manager) {
+			for(int i = 0; i < 10; i++)
+			{
+				System.out.println("Playing Rand vs Rand game...");
+				manager.StartGame(new RandomPlayer(), new RandomPlayer());
+			}
+		}
+	}, // Player v Random
+    PvR("Player vs. Rand", 5) {
+		@Override
+		public void execute(Manager manager) {
+			System.out.println("Playing Player vs Rand game...");
+			manager.StartGame(new HumanPlayer(), new RandomPlayer());
+		}
 	},
     Exit("Exit", 0) {
 		@Override

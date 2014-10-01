@@ -14,17 +14,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Manager implements Serializable{
-	
+
+public class Manager implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	public static Board gameBoard = new Board();
 	public static HashMap<Board, StateContainer> gameKnowledge = new HashMap<>();
+	private ArrayList<Board> gameTurns = new ArrayList<>();
 	
+	
+	/**
+	 * Create a Manager and instantiate a new game
+	 */
 	public Manager() {
 		NewGame();
 	}
-	
-	private ArrayList<Board> gameTurns = new ArrayList<>();
-	
+		
 	public void setBoard(int one, int two, int three)
 	{
 		gameBoard.set(0, one);
@@ -96,7 +101,7 @@ public class Manager implements Serializable{
 	        }
 	        try {
 				int choice = handleInput(Player.reader.readLine());
-				if(choice >= 0 && choice < 4) {
+				if(choice >= 0 && choice < enumValues.length) {
 	                List<MenuOption> collectedOptions = Arrays.asList(enumValues)
 	                        .stream()
 	                        .filter(x -> x.getRetValue() == choice)
