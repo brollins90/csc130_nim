@@ -8,20 +8,19 @@ public class StateContainer extends ArrayList<MeanState> implements Serializable
 	@Override
 	public boolean contains(Object state)
 	{
-		int[] board = new int[3];
 		for(MeanState s : this)
 		{
-			if(state.getClass() == s.getClass())
+			if(state.getClass() == MeanState.class)
 			{
-				if(s.sameBoard(((MeanState)state).getBoard()))
+				if(s.getBoard() == (((MeanState)state).getBoard()))
 				{
 					return true;
 				}
 			}
 			
-			else if(state.getClass() == board.getClass())
+			else if(state.getClass() == Board.class)
 			{
-				if(s.sameBoard((int[])state))
+				if(s.getBoard() == ((Board)state))
 				{
 					return true;
 				}
@@ -31,13 +30,13 @@ public class StateContainer extends ArrayList<MeanState> implements Serializable
 		return false;
 	}
 	
-	public int indexOf(int[] board)
+	public int indexOf(Board board)
 	{
 		int index = -1;
 		
 		for(int i = 0; i < this.size(); i++)
 		{
-			if(this.get(i).sameBoard(board))
+			if(this.get(i).getBoard() == (board))
 			{
 				return i;
 			}

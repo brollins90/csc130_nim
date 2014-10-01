@@ -27,7 +27,7 @@ public enum MenuOption {
 			for(int i = 0; i < 100; i++)
 			{
 				System.out.println("Playing AI vs AI game...");
-				manager.StartGame(new ComputerPlayer(), new ComputerPlayer());
+				manager.StartGame(new RandomPlayer(), new RandomPlayer());
 			}
 		}
 	},
@@ -35,7 +35,7 @@ public enum MenuOption {
 		@Override
 		public void execute(Manager manager) {
 			System.out.println("Thanks for playing");
-			HashMap<int[], StateContainer> test = Manager.gameKnowledge;
+			HashMap<Board, StateContainer> test = Manager.gameKnowledge;
 			System.exit(0);
 		}
 	};

@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class ComputerPlayer extends Player {
 
-	private HashMap<int[], StateContainer> gameKnowledge = Manager.gameKnowledge;
-	private int[] board = Manager.gameBoard;
+	private HashMap<Board, StateContainer> gameKnowledge = Manager.gameKnowledge;
+	private Board board = Manager.gameBoard;
 	private Random rand = new Random();
 
 	private int row = -1, count = -1;
@@ -42,23 +42,23 @@ public class ComputerPlayer extends Player {
 	{
 		board = Manager.gameBoard;
 		
-		int[] goal = goal();
+		Board goal = goal();
 		if(goal != null)
 		{
-			if(goal[0] < board[0])
+			if(goal.get(0) < board.get(0))
 			{
 				row = 1;
-				count = board[0] - goal[0];
+				count = board.get(0) - goal.get(0);
 			}
-			else if(goal[1] < board[1])
+			else if(goal.get(1) < board.get(1))
 			{
 				row = 2;
-				count = board[1] - goal[1];
+				count = board.get(1) - goal.get(1);
 			}
-			else if(goal[2] < board[2])
+			else if(goal.get(2) < board.get(2))
 			{
 				row = 3;
-				count = board[2] - goal[2];
+				count = board.get(2) - goal.get(2);
 			}
 		}
 		else
@@ -72,10 +72,10 @@ public class ComputerPlayer extends Player {
 	 * View all the boards that it knows about and save the one that we want as our goal
 	 * @return The board state with the best value
 	 */
-	public int[] goal()
+	public Board goal()
 	{
 		StateContainer container = gameKnowledge.get(board);
-		int[] goodGoal = null;
+		Board goodGoal = null;
 		double val = -2;
 		
 		if(container != null)

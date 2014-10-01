@@ -16,28 +16,24 @@ import java.util.stream.Collectors;
 
 public class Manager implements Serializable{
 	
-	public static int[] gameBoard = new int[3];
-	public static HashMap<int[], StateContainer> gameKnowledge = new HashMap<>();
+	public static Board gameBoard = new Board();
+	public static HashMap<Board, StateContainer> gameKnowledge = new HashMap<>();
 	
 	public Manager() {
 		NewGame();
 	}
 	
-	private ArrayList<int[]> gameTurns = new ArrayList<>();
+	private ArrayList<Board> gameTurns = new ArrayList<>();
 	
 	public void setBoard(int one, int two, int three)
 	{
-		gameBoard[0] = one;
-		gameBoard[1] = two;
-		gameBoard[2] = three;
-		
-		gameTurns.add(gameBoard.clone());
+		gameBoard.set(0, one);
+		gameBoard.set(1, two);
+		gameBoard.set(2, three);
 	}
 	
 	public void NewGame() {
-		gameBoard[0] = 3;
-		gameBoard[1] = 5;
-		gameBoard[2] = 7;
+		setBoard(3, 5, 7);
 		
 		gameTurns = new ArrayList<>();
 		gameTurns.add(gameBoard.clone());
@@ -132,9 +128,9 @@ public class Manager implements Serializable{
 		else
 		{
 			int zeroRow = row - 1; //Zero based row
-			if(toRemove <= gameBoard[zeroRow] && toRemove > 0)
+			if(toRemove <= gameBoard.get(zeroRow) && toRemove > 0)
 			{
-				gameBoard[zeroRow] -= toRemove;
+				gameBoard.set(zeroRow, (gameBoard.get(zeroRow) - toRemove));
 				gameTurns.add(gameBoard.clone());
 //				PlayerOne = !PlayerOne;
 			}
@@ -147,7 +143,7 @@ public class Manager implements Serializable{
 	
 	public boolean GameEnded()
 	{
-		if(gameBoard[0] == 0 && gameBoard[1] == 0 && gameBoard[2] == 0)
+		if(gameBoard.get(0) == 0 && gameBoard.get(1) == 0 && gameBoard.get(2) == 0)
 		{
 			return true;
 		}
@@ -157,9 +153,9 @@ public class Manager implements Serializable{
 	public void testReturnTurns()
 	{
 		boolean player = true;
-		for(int[] turn : gameTurns)
+		for(Board turn : gameTurns)
 		{			
-			System.out.println(((player) ? 1 : 2) + ": " + turn[0] + ", " + turn[1] + ", " + turn[2]);
+			System.out.println(((player) ? 1 : 2) + ": " + turn.get(0) + ", " + turn.get(1) + ", " + turn.get(2));
 			player = !player;
 		}
 	}
@@ -173,8 +169,8 @@ public class Manager implements Serializable{
 				
 		for(int i = 1; i < gameTurns.size(); i++)
 		{			
-			int[] previousBoard = gameTurns.get(i-1);
-			int[] currentBoard = gameTurns.get(i);
+			Board previousBoard = gameTurns.get(i-1);
+			Board currentBoard = gameTurns.get(i);
 			firstPlayer = !firstPlayer;
 			double value = ((i/2 + 1) / ((double)(firstPlayer ? firstTurn : secondTurn))) * (firstPlayer == firstWin ? 1 : -1);
 			//Here is where you would store the states into the machine learning.
@@ -200,17 +196,17 @@ public class Manager implements Serializable{
 			}
 		}
 	}
-		
+	
 	public void checkforduplicate()
 	{
-		Set<int[]> holder = gameKnowledge.keySet();
+		Set<Board> holder = gameKnowledge.keySet();
 		int duplicates = 0;
-		for(int[] board : holder)
+		for(Board board : holder)
 		{
 			int count = 0;
-			for(int[] second : holder)
+			for(Board second : holder)
 			{
-				if(board[0] == second[0] && board[1] == second[1] &&board[2] == second[2])
+				if(board.get(0) == second.get(0) && board.get(1) == second.get(1) && board.get(2) == second.get(2))
 				{
 					count++;
 				}
@@ -229,7 +225,7 @@ public class Manager implements Serializable{
 		try {
 			ObjectInputStream ois;
 			ois = new ObjectInputStream(new FileInputStream("data/learning.data"));
-			gameKnowledge = (HashMap<int[], StateContainer>)ois.readObject();
+			gameKnowledge = (HashMap<Board, StateContainer>)ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException e) {
 			gameKnowledge = new HashMap<>();

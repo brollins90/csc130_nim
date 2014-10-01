@@ -5,28 +5,28 @@ import java.util.Arrays;
 
 public class MeanState implements Serializable, Comparable<MeanState> {
 
-	private int[] board = new int[3];
+	private Board board;
 	private int timesSeen;
 	private double value;
 	
 	public MeanState(){}
-	public MeanState(int[] board)
+	public MeanState(Board board)
 	{
 		this.board = board;
 		this.timesSeen = 1;
 		this.value = 0;
 	}
-	public MeanState(int[] board, double value)
+	public MeanState(Board board, double value)
 	{
 		this.board = board;
 		this.timesSeen = 1;
 		this.value = value;
 	}
 	
-	public int[] getBoard() {
+	public Board getBoard() {
 		return board;
 	}
-	public void setBoard(int[] board) {
+	public void setBoard(Board board) {
 		this.board = board;
 	}
 	public int getTimesSeen() {
@@ -49,22 +49,18 @@ public class MeanState implements Serializable, Comparable<MeanState> {
 		timesSeen++;
 		value = totalAvg / timesSeen;
 	}
-	
-	public boolean sameBoard(int[] otherBoard)
-	{
-		return Arrays.equals(board, otherBoard);
-	}
-	
+		
 	@Override
 	public String toString()
 	{
-		return "[" + board[0] + ", " + board[1] + ", " + board[2] + "]; " + value;
+		return "[" + board.get(0) + ", " + board.get(1) + ", " + board.get(2) + "]; " + value;
 	}
 	
+	//I honestly don't remember this override or if it is even used, but I'll leave it here for now. David
 	@Override
 	public int compareTo(MeanState o) {
 		int compareVal = 1;
-		if (this.board[0] == o.board[0] && this.board[1] == o.board[1] && this.board[2] == o.board[2]) {
+		if (this.board.get(0) == o.board.get(0) && this.board.get(1) == o.board.get(1) && this.board.get(2) == o.board.get(2)) {
 			compareVal = 0;
 		} 
 		return compareVal;

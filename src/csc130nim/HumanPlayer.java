@@ -48,19 +48,19 @@ public class HumanPlayer extends Player {
     private void printGameBoard() {
     	String line = "";
     	line += "1:";
-    	for (int i = 0; i < Manager.gameBoard[0]; i++) {
+    	for (int i = 0; i < Manager.gameBoard.get(0); i++) {
     		line += " X";
     	}
     	line += "\n";
     	
     	line += "2:";
-    	for (int i = 0; i < Manager.gameBoard[1]; i++) {
+    	for (int i = 0; i < Manager.gameBoard.get(1); i++) {
     		line += " X";
     	}
     	line += "\n";
     	
     	line += "3:";
-    	for (int i = 0; i < Manager.gameBoard[2]; i++) {
+    	for (int i = 0; i < Manager.gameBoard.get(2); i++) {
     		line += " X";
     	}
     	line += "\n";
