@@ -258,7 +258,7 @@ public class Manager implements Serializable {
 	{
 		try {
 			ObjectInputStream ois;
-			ois = new ObjectInputStream(new FileInputStream("data/learning.data"));
+			ois = new ObjectInputStream(new FileInputStream("learning.data"));
 			gameKnowledge = (HashMap<Board, StateContainer>)ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException e) {
@@ -275,7 +275,7 @@ public class Manager implements Serializable {
 	public void save()
 	{
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("data/learning.data"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("learning.data"));
 			oos.writeObject(gameKnowledge);
 			oos.flush();
 			oos.close();
