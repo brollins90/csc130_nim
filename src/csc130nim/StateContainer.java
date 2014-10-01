@@ -48,14 +48,15 @@ public class StateContainer extends ArrayList<MeanState> implements Serializable
 	
 	@Override
 	public String toString()
-	{
-		String toReturn = "";
-		
-		for(MeanState s : this)
-		{
-			toReturn += s.toString() + ", ";
-		}
-		
-		return toReturn;
-	}
+
+    {
+        StringBuilder toReturn = new StringBuilder("");
+
+        for (MeanState s : this)
+        {
+            toReturn.append(s.toString()).append(", ");
+        }
+
+        return toReturn.toString();
+    }
 }
