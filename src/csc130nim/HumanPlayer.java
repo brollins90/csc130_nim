@@ -4,6 +4,9 @@ import java.io.IOException;
 
 public class HumanPlayer extends Player {
 
+	/**
+	 * Asks the player for a row to use
+	 */
 	@Override
 	public int getRow() {
 		printGameBoard();
@@ -12,6 +15,9 @@ public class HumanPlayer extends Player {
         return rowChoice;
     }
 
+	/**
+	 * Asks the player for the number of pieces to remove in the previously selected row
+	 */
 	@Override
 	public int getNumberToRemove() {
         int numChoice = promptBasicInteger("the number to remove from that row");
@@ -36,6 +42,9 @@ public class HumanPlayer extends Player {
         return i;
     }
     
+    /**
+     * Prints the board for the player
+     */
     private void printGameBoard() {
     	String line = "";
     	line += "1:";
