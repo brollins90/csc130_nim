@@ -10,6 +10,12 @@ public class State implements Serializable, Comparable<State> {
 	private double value;
 	
 	public State(){}
+	public State(int[] board)
+	{
+		this.board = board;
+		this.timesSeen = 1;
+		this.value = 0;
+	}
 	public State(int[] board, double value)
 	{
 		this.board = board;

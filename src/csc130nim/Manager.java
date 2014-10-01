@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class Manager implements Serializable{
 	
 	public static int[] gameBoard = new int[3];
-	public HashMap<int[], StateContainer> gameKnowledge = new HashMap<>();
+	public static HashMap<int[], StateContainer> gameKnowledge = new HashMap<>();
 	
 	public Manager() {
 		NewGame();
