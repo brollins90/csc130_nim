@@ -1,57 +1,83 @@
 package csc130nim;
 
+import java.util.HashMap;
+import java.util.Random;
 import java.util.ArrayList;
 
 public class ComputerPlayer extends Player {
 
-	private int rowToChoose = 0;
-	private int numToChoose = 0;
+	private HashMap<int[], StateContainer> gameKnowledge = Manager.gameKnowledge;
+	private int[] board = Manager.gameBoard;
+	private Random rand = new Random();
 
+	private int row = -1, count = -1;
+	
 	@Override
 	public int getRow() {
-		rowToChoose = 0;
-		numToChoose = 0;
-
-		ArrayList<State> statesToTest = new ArrayList<State>();
-		for (int i = 0; i < Manager.gameBoard[0]; i++) {
-			statesToTest.add(new State(new int[] { i, Manager.gameBoard[1], Manager.gameBoard[2] }));
-		}
-		for (int i = 0; i < Manager.gameBoard[1]; i++) {
-			statesToTest.add(new State(new int[] { Manager.gameBoard[0], i, Manager.gameBoard[2] }));
-		}
-		for (int i = 0; i < Manager.gameBoard[2]; i++) {
-			statesToTest.add(new State(new int[] { Manager.gameBoard[0], Manager.gameBoard[1], i }));
-		}
-
-		System.out.println("num states to test: " + statesToTest.size());
-		System.out.println(statesToTest);
-		State bestState = null;
-		for (State s : statesToTest) {
-			if (bestState == null) {
-				bestState = s;
-				
-				// this next line doesnt actually check against the computers knowledge because all the values are 0
-			} else if (bestState.getValue() <  s.getValue()) {
-				bestState = s;
-			}
-		}
-		
-		if (Manager.gameBoard[0] != bestState.getBoard()[0]) {
-			rowToChoose = 1;
-			numToChoose = Manager.gameBoard[0] - bestState.getBoard()[0];
-		} else if (Manager.gameBoard[1] != bestState.getBoard()[1]) {
-			rowToChoose = 2;
-			numToChoose = Manager.gameBoard[1] - bestState.getBoard()[1];
-		} else if (Manager.gameBoard[2] != bestState.getBoard()[2]) {
-			rowToChoose = 3;
-			numToChoose = Manager.gameBoard[2] - bestState.getBoard()[2];
-		}
-		return rowToChoose;
+		if(row == -1)
+			decide();
+		int decision = row;
+		row = -1;
+		return decision;
 	}
 
 	@Override
 	public int getNumberToRemove() {
-		return numToChoose;
+		if(count == -1)
+			decide();
+		int decision = count;
+		count = -1;
+		return decision;
 	}
-
+	
+	public void decide()
+	{
+		board = Manager.gameBoard;
+		
+		int[] goal = goal();
+		if(goal != null)
+		{
+			if(goal[0] < board[0])
+			{
+				row = 1;
+				count = board[0] - goal[0];
+			}
+			else if(goal[1] < board[1])
+			{
+				row = 2;
+				count = board[1] - goal[1];
+			}
+			else if(goal[2] < board[2])
+			{
+				row = 3;
+				count = board[2] - goal[2];
+			}
+		}
+		else
+		{
+			row = rand.nextInt(3) + 1;
+			count = rand.nextInt(5);
+		}
+	}
+	
+	public int[] goal()
+	{
+		StateContainer container = gameKnowledge.get(board);
+		int[] goodGoal = null;
+		double val = -2;
+		
+		if(container != null)
+		{
+			for(State s : container)
+			{
+				if(s.getValue() > val)
+				{
+					val = s.getValue();
+					goodGoal = s.getBoard();
+				}
+			}
+		}
+				
+		return goodGoal;
+	}
 }

@@ -49,17 +49,33 @@ public class Manager implements Serializable{
 		Boolean playing = true;
 		Boolean playerOneCurrent = true;
 		
+		int row = -3;
+		int count = -3;
+		
 		while(playing) {
 			Player current = (playerOneCurrent) ? p1 : p2;
-			
+			System.out.println(playerOneCurrent ? "Player One: " : "Player Two: ");
 			boolean completedMove = false;
+
+
 			
 			while(!completedMove) {
+				
 				try {
-					removePieces(current.getRow(), current.getNumberToRemove());
+					row = current.getRow();
+					count = current.getNumberToRemove();
+					removePieces(row, count);
 					completedMove = true;
+					playerOneCurrent = !playerOneCurrent;
 				} catch (Exception e) {
 					System.out.println("Invalid selection, try again.");
+					//e.printStackTrace();
+				}
+				if(GameEnded())
+				{
+					calculateStates();
+					save();
+					playing = false;
 				}
 			}
 			
@@ -182,7 +198,7 @@ public class Manager implements Serializable{
 			}
 		}
 	}
-	
+		
 	public void load()
 	{
 		try {
