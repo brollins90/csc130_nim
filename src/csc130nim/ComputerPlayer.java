@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class ComputerPlayer extends Player {
 	
-	private static Brain brain = new Brain();
+	private static StateContainer brain;
 	
 	public ComputerPlayer() {
 	}
