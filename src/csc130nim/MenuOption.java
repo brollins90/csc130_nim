@@ -24,7 +24,7 @@ public enum MenuOption {
     EvE("AI vs. AI", 3) {
 		@Override
 		public void execute(Manager manager) {
-			for(int i = 0; i < 100; i++)
+			for(int i = 0; i < 10; i++)
 			{
 				System.out.println("Playing AI vs AI game...");
 				manager.StartGame(new RandomPlayer(), new RandomPlayer());
@@ -34,7 +34,7 @@ public enum MenuOption {
     RvR("Rand vs. Rand", 4) {
 		@Override
 		public void execute(Manager manager) {
-			for(int i = 0; i < 10; i++)
+			for(int i = 0; i < 100; i++)
 			{
 				System.out.println("Playing Rand vs Rand game...");
 				manager.StartGame(new RandomPlayer(), new RandomPlayer());

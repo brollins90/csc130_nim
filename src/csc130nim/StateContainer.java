@@ -5,29 +5,18 @@ import java.util.ArrayList;
 
 public class StateContainer extends ArrayList<MeanState> implements Serializable{
 
-	@Override
-	public boolean contains(Object state)
+	public boolean contains(Board board)
 	{
+		boolean ret = false;
 		for(MeanState s : this)
 		{
-			if(state.getClass() == MeanState.class)
+			if(s.getBoard().equals(board))
 			{
-				if(s.getBoard() == (((MeanState)state).getBoard()))
-				{
-					return true;
-				}
-			}
-			
-			else if(state.getClass() == Board.class)
-			{
-				if(s.getBoard() == ((Board)state))
-				{
-					return true;
-				}
+				ret = true;
 			}
 		}
 		
-		return false;
+		return ret;
 	}
 	
 	public int indexOf(Board board)
@@ -36,7 +25,7 @@ public class StateContainer extends ArrayList<MeanState> implements Serializable
 		
 		for(int i = 0; i < this.size(); i++)
 		{
-			if(this.get(i).getBoard() == (board))
+			if(this.get(i).getBoard().equals(board))
 			{
 				return i;
 			}

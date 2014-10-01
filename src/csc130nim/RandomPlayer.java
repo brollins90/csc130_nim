@@ -14,7 +14,7 @@ public class RandomPlayer extends Player{
 
 	@Override
 	public int getNumberToRemove() {
-		return rand.nextInt(5);
+		return rand.nextInt(8);
 	}
 
 	

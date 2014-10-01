@@ -82,4 +82,10 @@ public class Board implements Serializable{
 		return new Board(a, b, c);
 	}
 	
+	@Override
+	public String toString()
+	{
+		return "[" + a + ", " + b + ", " + c + "]";
+	}
+	
 }

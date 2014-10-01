@@ -49,7 +49,9 @@ public class Manager implements Serializable {
 		NewGame();
 		Boolean playing = true;
 		Boolean playerOneCurrent = true;
-		
+				
+		StateContainer firstMoveTest = gameKnowledge.get(gameBoard);
+
 		int row = -3;
 		int count = -3;
 		
@@ -93,6 +95,8 @@ public class Manager implements Serializable {
         
         load();
         checkforduplicate();
+        checkInternalDuplicates();
+        
         while(true)
         {
 	        for (int i = 0; i < enumValues.length; i++) {
@@ -220,6 +224,34 @@ public class Manager implements Serializable {
 			{
 				duplicates++;
 			}
+		}
+		
+		System.out.println("Number of duplicate keys: " + duplicates);
+	}
+	
+	public void checkInternalDuplicates()
+	{
+		Set<Board> holder = gameKnowledge.keySet();
+		int duplicates = 0;
+		for(Board board : holder)
+		{
+			
+			for(MeanState s : gameKnowledge.get(board))
+			{
+				int count = 0;
+				for(MeanState second : gameKnowledge.get(board))
+				{
+					if(s.getBoard() == second.getBoard() ){
+						count++;
+					}
+				}
+				
+				if(count > 1)
+				{
+					duplicates++;
+				}
+			}
+			
 		}
 		
 		System.out.println("Number of duplicate keys: " + duplicates);
