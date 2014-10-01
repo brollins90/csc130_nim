@@ -1,5 +1,7 @@
 package csc130nim;
 
+import java.util.HashMap;
+
 /**
  * Created by Stephen on 9/29/2014.
  * In project: csc130_nim

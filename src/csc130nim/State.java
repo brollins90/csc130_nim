@@ -3,7 +3,7 @@ package csc130nim;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class State implements Serializable{
+public class State implements Serializable, Comparable<State> {
 
 	private int[] board = new int[3];
 	private int timesSeen;
@@ -53,6 +53,23 @@ public class State implements Serializable{
 	public String toString()
 	{
 		return "[" + board[0] + ", " + board[1] + ", " + board[2] + "]; " + value;
+	}
+	
+	@Override
+	public int compareTo(State o) {
+		int compareVal = 1;
+		if (this.board[0] == o.board[0] && this.board[1] == o.board[1] && this.board[2] == o.board[2]) {
+			compareVal = 0;
+		} 
+		return compareVal;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+
+		if (obj instanceof State)
+            return this == obj || (this.compareTo((State)obj) == 0);
+		return false;
 	}
 	
 }

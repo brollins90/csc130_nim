@@ -24,7 +24,6 @@ public class Manager implements Serializable{
 	
 	private ArrayList<int[]> gameTurns = new ArrayList<>();
 	
-	
 	public void setBoard(int one, int two, int three)
 	{
 		gameBoard[0] = one;
@@ -80,6 +79,11 @@ public class Manager implements Serializable{
 				}
 			}
 			
+			if(GameEnded())
+			{
+				calculateStates();
+				playing = false;
+			}
 		}
 	}
 
@@ -211,7 +215,6 @@ public class Manager implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void save()

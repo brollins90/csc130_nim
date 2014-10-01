@@ -5,17 +5,14 @@ import java.util.Random;
 import java.util.Stack;
 
 public class ComputerPlayer extends Player {
-	
-	private static Brain brain = new Brain();
-	private Stack<GameState> previousMoves;
+
 	private HashMap<int[], StateContainer> gameKnowledge = Manager.gameKnowledge;
 	private int[] board = Manager.gameBoard;
 	private Random rand = new Random();
 
 	private int row = -1, count = -1;
-	
+
 	public ComputerPlayer() {
-		previousMoves = new Stack<GameState>();
 	}
 
 	@Override
