@@ -24,7 +24,7 @@ public enum MenuOption {
     EvE("AI vs. AI", 3) {
 		@Override
 		public void execute(Manager manager) {
-			for(int i = 0; i < 10; i++)
+			for(int i = 0; i < 100; i++)
 			{
 				System.out.println("Playing AI vs AI game...");
 				manager.StartGame(new ComputerPlayer(), new ComputerPlayer());
@@ -52,6 +52,7 @@ public enum MenuOption {
 		@Override
 		public void execute(Manager manager) {
 			System.out.println("Thanks for playing");
+			HashMap<int[], StateContainer> test = Manager.gameKnowledge;
 			System.exit(0);
 		}
 	};

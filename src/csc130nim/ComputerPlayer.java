@@ -80,7 +80,7 @@ public class ComputerPlayer extends Player {
 		
 		if(container != null)
 		{
-			for(State s : container)
+			for(MeanState s : container)
 			{
 				if(s.getValue() > val)
 				{
