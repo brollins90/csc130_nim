@@ -1,14 +1,22 @@
 package csc130nim;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Manager {
+public class Manager implements Serializable{
 	
 	public static int[] gameBoard = new int[3];
+	public HashMap<int[], StateContainer> gameKnowledge = new HashMap<>();
 	
 	public Manager() {
 		NewGame();
@@ -37,6 +45,7 @@ public class Manager {
 	
 	public void StartGame(Player p1, Player p2) {
 		
+		NewGame();
 		Boolean playing = true;
 		Boolean playerOneCurrent = true;
 		
@@ -64,30 +73,35 @@ public class Manager {
 
     public void printOpeningMenu() {
         MenuOption[] enumValues = MenuOption.values();
-        for (int i = 0; i < enumValues.length; i++) {
-            MenuOption current = enumValues[i];
-            System.out.println(current.getRetValue() + ". " + current.getReadableName());
-        }
         
-        try {
-			int choice = handleInput(Player.reader.readLine());
-			if(choice >= 0 && choice < 4) {
-                List<MenuOption> collectedOptions = Arrays.asList(enumValues)
-                        .stream()
-                        .filter(x -> x.getRetValue() == choice)
-                        .collect(Collectors.toList());
-
-                collectedOptions.addAll(Arrays.asList(enumValues));
-//                collectedOptions.forEach(System.out::println);
-                collectedOptions.get(0).execute(this);
-            }
-            else
-			{
-				System.err.println("Bad input");
+        load();
+        
+        while(true)
+        {
+	        for (int i = 0; i < enumValues.length; i++) {
+	            MenuOption current = enumValues[i];
+	            System.out.println(current.getRetValue() + ". " + current.getReadableName());
+	        }
+	        try {
+				int choice = handleInput(Player.reader.readLine());
+				if(choice >= 0 && choice < 4) {
+	                List<MenuOption> collectedOptions = Arrays.asList(enumValues)
+	                        .stream()
+	                        .filter(x -> x.getRetValue() == choice)
+	                        .collect(Collectors.toList());
+	
+	                collectedOptions.addAll(Arrays.asList(enumValues));
+//	                collectedOptions.forEach(System.out::println);
+	                collectedOptions.get(0).execute(this);
+	            }
+	            else
+				{
+					System.err.println("Bad input");
+				}
+			} catch (IOException e) {
+				System.err.println("The starter input was not parseable.");
 			}
-		} catch (IOException e) {
-			System.err.println("The starter input was not parseable.");
-		}
+        }
     }
 
     private int handleInput(String readLine) {
@@ -140,26 +154,64 @@ public class Manager {
 		boolean firstWin = (gameTurns.size() % 2 == 0 ? true : false);
 		int secondTurn = gameTurns.size() / 2;
 		int firstTurn = (gameTurns.size() % 2 == 0 ? secondTurn : (gameTurns.size() / 2) + 1);
-		
-		/*//This chunk will add the first turn to a hashmap called gameKnowledge, or wherever we decide to store the data.
-		if(gameKnowledge.get(gameTurns.get(0)) !=  null)
-		{
-			gameKnowledge.get(gameTurns.get(0)).addValue(0d);
-		}
-		*/
-		//Test code
-		System.out.println(((firstPlayer) ? 1 : 2) + ": " + gameTurns.get(0)[0] + ", " + gameTurns.get(0)[1] + ", " + gameTurns.get(0)[2]);
-		System.out.println("Value: " + 0);
-		
+				
 		for(int i = 1; i < gameTurns.size(); i++)
 		{			
+			int[] previousBoard = gameTurns.get(i-1);
+			int[] currentBoard = gameTurns.get(i);
 			firstPlayer = !firstPlayer;
-			int numerator = i/2 + 1;
-			double denomerator = ((double)(firstPlayer ? firstTurn : secondTurn));
 			double value = ((i/2 + 1) / ((double)(firstPlayer ? firstTurn : secondTurn))) * (firstPlayer == firstWin ? 1 : -1);
 			//Here is where you would store the states into the machine learning.
-			System.out.println(((firstPlayer) ? 1 : 2) + ": " + gameTurns.get(i)[0] + ", " + gameTurns.get(i)[1] + ", " + gameTurns.get(i)[2]);
-			System.out.println("Value: " + value);
+			if(gameKnowledge.get(previousBoard) != null)
+			{
+				ArrayList<State> possible = gameKnowledge.get(previousBoard);
+				if(possible.contains(currentBoard))
+				{
+					possible.get(possible.indexOf(currentBoard)).addValue(value);
+				}
+				else
+				{
+					possible.add(new State(currentBoard, value));
+				}
+			}
+			else
+			{
+				StateContainer contain = new StateContainer();
+				contain.add(new State(currentBoard, value));
+				gameKnowledge.put(previousBoard, contain);
+			}
+		}
+	}
+	
+	public void load()
+	{
+		try {
+			ObjectInputStream ois;
+			ois = new ObjectInputStream(new FileInputStream("data/learning.data"));
+			gameKnowledge = (HashMap<int[], StateContainer>)ois.readObject();
+			ois.close();
+		} catch (FileNotFoundException e) {
+			gameKnowledge = new HashMap<>();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void save()
+	{
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("data/learning.data"));
+			oos.writeObject(gameKnowledge);
+			oos.flush();
+			oos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
