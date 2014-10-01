@@ -16,37 +16,6 @@ public class Manager {
 	
 	private ArrayList<int[]> gameTurns = new ArrayList<>();
 	
-//	public void playGame()
-//	{
-//		boolean running = true;
-//		
-//		Random rand = new Random();
-//		PlayerOne = (rand.nextInt(2) == 1) ? true : false;
-//		PlayerOneFirst = PlayerOne;
-//		
-//		while(running)
-//		{
-//			present.printBoard(gameBoard);
-//			present.printTurn(PlayerOne);
-//			int row = present.promptRowSelection();
-//			int pieces = present.promptNumPieces();
-//			
-//			try
-//			{
-//				removePieces(row, pieces);
-//				if(GameEnded())
-//				{
-//					testReturnTurns();
-//					running = false;
-//				}
-//			}
-//			catch(IllegalArgumentException ex)
-//			{
-//				System.err.println(ex);
-//			}
-//		}
-//	}
-	
 	public void setBoard(int one, int two, int three)
 	{
 		gameBoard[0] = one;

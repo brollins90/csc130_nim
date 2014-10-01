@@ -6,11 +6,11 @@ public class Brain {
 		
 	}
 	
-	public double getValue(GameState s) {
+	public double getState(GameState s) {
 		return 0;
 	}
 	
-	public void addValue(GameState s, double value) {
+	public void addState(GameState s, double value) {
 		
 	}
 }
