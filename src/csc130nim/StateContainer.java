@@ -33,14 +33,14 @@ public class StateContainer extends ArrayList<State> implements Serializable{
 	
 	@Override
 	public String toString()
-	{
-		String toReturn = "";
-		
-		for(State s : this)
-		{
-			toReturn += s.toString() + ", ";
-		}
-		
-		return toReturn;
-	}
+    {
+        StringBuilder toReturn = new StringBuilder("");
+
+        for (State s : this)
+        {
+            toReturn.append(s.toString()).append(", ");
+        }
+
+        return toReturn.toString();
+    }
 }
