@@ -2,7 +2,6 @@ package csc130nim;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.ArrayList;
 
 public class ComputerPlayer extends Player {
 
@@ -12,6 +11,9 @@ public class ComputerPlayer extends Player {
 
 	private int row = -1, count = -1;
 	
+	/**
+	 * Returns the row the the AI chooses
+	 */
 	@Override
 	public int getRow() {
 		if(row == -1)
@@ -21,6 +23,9 @@ public class ComputerPlayer extends Player {
 		return decision;
 	}
 
+	/**
+	 * Returns the number to remove from the previously selected row
+	 */
 	@Override
 	public int getNumberToRemove() {
 		if(count == -1)
@@ -30,6 +35,9 @@ public class ComputerPlayer extends Player {
 		return decision;
 	}
 	
+	/**
+	 * Makes a choice for the computer to return later
+	 */
 	public void decide()
 	{
 		board = Manager.gameBoard;
@@ -60,6 +68,10 @@ public class ComputerPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * View all the boards that it knows about and save the one that we want as our goal
+	 * @return The board state with the best value
+	 */
 	public int[] goal()
 	{
 		StateContainer container = gameKnowledge.get(board);
