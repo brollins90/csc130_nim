@@ -106,15 +106,12 @@ public class Manager implements Serializable {
 	                        .stream()
 	                        .filter(x -> x.getRetValue() == choice)
 	                        .collect(Collectors.toList());
-	
-	                collectedOptions.addAll(Arrays.asList(enumValues));
-//	                collectedOptions.forEach(System.out::println);
+	//	                collectedOptions.forEach(System.out::println);
 	                collectedOptions.get(0).execute(this);
-	            }
+                }
 	            else
-				{
-					System.err.println("Bad input");
-				}
+                    System.err.println("Bad input");
+
 			} catch (IOException e) {
 				System.err.println("The starter input was not parseable.");
 			}

@@ -12,18 +12,12 @@ public class StateContainer extends ArrayList<MeanState> implements Serializable
 		{
 			if(state.getClass() == MeanState.class)
 			{
-				if(s.getBoard() == (((MeanState)state).getBoard()))
-				{
-					return true;
-				}
-			}
-			
+                return (s.getBoard() == (((MeanState)state).getBoard()));
+            }
+
 			else if(state.getClass() == Board.class)
 			{
-				if(s.getBoard() == ((Board)state))
-				{
-					return true;
-				}
+                return (s.getBoard() == ((Board)state));
 			}
 		}
 		
