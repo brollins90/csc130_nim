@@ -3,20 +3,20 @@ package csc130nim;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class State implements Serializable, Comparable<State> {
+public class MeanState implements Serializable, Comparable<MeanState> {
 
 	private int[] board = new int[3];
 	private int timesSeen;
 	private double value;
 	
-	public State(){}
-	public State(int[] board)
+	public MeanState(){}
+	public MeanState(int[] board)
 	{
 		this.board = board;
 		this.timesSeen = 1;
 		this.value = 0;
 	}
-	public State(int[] board, double value)
+	public MeanState(int[] board, double value)
 	{
 		this.board = board;
 		this.timesSeen = 1;
@@ -62,7 +62,7 @@ public class State implements Serializable, Comparable<State> {
 	}
 	
 	@Override
-	public int compareTo(State o) {
+	public int compareTo(MeanState o) {
 		int compareVal = 1;
 		if (this.board[0] == o.board[0] && this.board[1] == o.board[1] && this.board[2] == o.board[2]) {
 			compareVal = 0;
@@ -73,8 +73,8 @@ public class State implements Serializable, Comparable<State> {
 	@Override
 	public boolean equals(Object obj) {
 
-		if (obj instanceof State)
-            return this == obj || (this.compareTo((State)obj) == 0);
+		if (obj instanceof MeanState)
+            return this == obj || (this.compareTo((MeanState)obj) == 0);
 		return false;
 	}
 	

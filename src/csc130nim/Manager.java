@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Manager implements Serializable{
@@ -33,7 +34,6 @@ public class Manager implements Serializable{
 		gameTurns.add(gameBoard.clone());
 	}
 	
-
 	public void NewGame() {
 		gameBoard[0] = 3;
 		gameBoard[1] = 5;
@@ -91,7 +91,7 @@ public class Manager implements Serializable{
         MenuOption[] enumValues = MenuOption.values();
         
         load();
-        
+        checkforduplicate();
         while(true)
         {
 	        for (int i = 0; i < enumValues.length; i++) {
@@ -180,25 +180,50 @@ public class Manager implements Serializable{
 			//Here is where you would store the states into the machine learning.
 			if(gameKnowledge.get(previousBoard) != null)
 			{
-				ArrayList<State> possible = gameKnowledge.get(previousBoard);
+				StateContainer possible = gameKnowledge.get(previousBoard);
 				if(possible.contains(currentBoard))
 				{
+					boolean test = possible.contains(currentBoard);
+					int a = possible.indexOf(currentBoard);
 					possible.get(possible.indexOf(currentBoard)).addValue(value);
 				}
 				else
 				{
-					possible.add(new State(currentBoard, value));
+					possible.add(new MeanState(currentBoard, value));
 				}
 			}
 			else
 			{
 				StateContainer contain = new StateContainer();
-				contain.add(new State(currentBoard, value));
+				contain.add(new MeanState(currentBoard, value));
 				gameKnowledge.put(previousBoard, contain);
 			}
 		}
 	}
 		
+	public void checkforduplicate()
+	{
+		Set<int[]> holder = gameKnowledge.keySet();
+		int duplicates = 0;
+		for(int[] board : holder)
+		{
+			int count = 0;
+			for(int[] second : holder)
+			{
+				if(board[0] == second[0] && board[1] == second[1] &&board[2] == second[2])
+				{
+					count++;
+				}
+			}
+			if(count > 1)
+			{
+				duplicates++;
+			}
+		}
+		
+		System.out.println("Number of duplicate keys: " + duplicates);
+	}
+	
 	public void load()
 	{
 		try {

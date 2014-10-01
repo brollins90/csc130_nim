@@ -3,32 +3,47 @@ package csc130nim;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class StateContainer extends ArrayList<State> implements Serializable{
+public class StateContainer extends ArrayList<MeanState> implements Serializable{
 
 	@Override
 	public boolean contains(Object state)
 	{
-		//int[] board = new int[3];
-		for(State s : this)
+		int[] board = new int[3];
+		for(MeanState s : this)
 		{
 			if(state.getClass() == s.getClass())
 			{
-				if(s.sameBoard(((State)state).getBoard()))
+				if(s.sameBoard(((MeanState)state).getBoard()))
 				{
 					return true;
 				}
 			}
 			
-			//else if(state.getClass() == board.getClass())
-			//{
-			//	if(s.sameBoard((int[])state))
-			//	{
-			//		return true;
-			//	}
-			//}
+			else if(state.getClass() == board.getClass())
+			{
+				if(s.sameBoard((int[])state))
+				{
+					return true;
+				}
+			}
 		}
 		
 		return false;
+	}
+	
+	public int indexOf(int[] board)
+	{
+		int index = -1;
+		
+		for(int i = 0; i < this.size(); i++)
+		{
+			if(this.get(i).sameBoard(board))
+			{
+				return i;
+			}
+		}
+		
+		return index;
 	}
 	
 	@Override
@@ -36,7 +51,7 @@ public class StateContainer extends ArrayList<State> implements Serializable{
 	{
 		String toReturn = "";
 		
-		for(State s : this)
+		for(MeanState s : this)
 		{
 			toReturn += s.toString() + ", ";
 		}
