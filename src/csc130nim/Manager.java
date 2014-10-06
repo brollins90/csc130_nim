@@ -68,10 +68,6 @@ public class Manager implements Serializable {
     public void printOpeningMenu() {
         MenuOption[] enumValues = MenuOption.values();
 
-//        load();
-//        checkforduplicate();
-//        checkInternalDuplicates();
-
         while(true)
         {
 	        for (int i = 0; i < enumValues.length; i++) {
@@ -85,7 +81,6 @@ public class Manager implements Serializable {
 	                        .stream()
 	                        .filter(x -> x.getRetValue() == choice)
 	                        .collect(Collectors.toList());
-	//	                collectedOptions.forEach(System.out::println);
 	                collectedOptions.get(0).execute(this);
                 }
 	            else
@@ -111,8 +106,6 @@ public class Manager implements Serializable {
 			if(toRemove <= gameBoard.get(zeroRow) && toRemove > 0)
 			{
 				gameBoard.set(zeroRow, (gameBoard.get(zeroRow) - toRemove));
-//				gameTurns.add(gameBoard.clone());
-//				PlayerOne = !PlayerOne;
 			}
 			else
 			{

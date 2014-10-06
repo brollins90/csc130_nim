@@ -1,0 +1,74 @@
+
+Board Class, stores three integers.
+Manager Class's purpose:
+	
+Computer Player:
+Old: private HashMap<Board, StateContainer> gameKnowledge = Manager.gameKnowledge;
+
+New: + public static HashMap<Board, StateContainer> gameKnowledge = StateCalculator.load();
+	+ private ArrayList<Board> gameTurns = new ArrayList<>();
+
+	+ @Override
+	+ public void gameEnded() {
+	+ StateCalculator.calculateStates(gameKnowledge, gameTurns);
+	+ StateCalculator.save(gameKnowledge);
+	+ }
+
+Extracted StateCalculator Class from Manager calculateState method.
+	
+Computer Science:
+
+ComputerPlayer, goal()
+Replaced StateContainer, ArrayList, with an iterator. Then replaced for each loop with while hasNext() loop.
+Reason: Prefer returning Iterators over Collections.
+	At this size it doesn't really matter, but if we were to add many more rows, then the StateContainer could grow to be massive, and the Iterator would be more efficient.
+	Additional Note: I am now on the fence over this code change. Re-reading the principle it sounds like you want to use iterators to avoid building a collection, which we already have built.
+Code:
+	Old:
+	public Board goal() {
+		StateContainer container = gameKnowledge.get(board);
+		Board goodGoal = null;
+		double val = -2;
+
+		if (container != null) {
+			for (MeanState s : container) {
+				if (s.getValue() > val) {
+					val = s.getValue();
+					goodGoal = s.getBoard();
+				}
+			}
+		}
+
+		return goodGoal;
+	}
+	
+	New:
+	public Board goal() {
+		Iterator<MeanState> container = gameKnowledge.get(board).iterator();
+		Board goodGoal = null;
+		double val = -2;
+
+		if (container != null) {
+			while(container.hasNext())
+			{
+				MeanState s = container.next();
+				if (s.getValue() > val) {
+					val = s.getValue();
+					goodGoal = s.getBoard();
+				}
+			}
+		}
+
+		return goodGoal;
+	}
+	
+Note: In the StateCalculator class there is also an instance of StateContainer being returned. However here we are using the contains() method rather than iterating through the array, so it should be fine.
+
+For Replace Algorithm rule:
+	The only two algorithms that might be simplified are in the StateCalculator calculateState() and ComputerPlayer decide(). I can't figure out how to simplify the so they have been left alone.
+	
+For Replace Recursion with Iteration:
+	I do not see any recursion, nor do we have a recursive problem that I can see.
+	
+For use appropriate data types:
+	The board class seems to be standing out as wanting to be an array. We have a class that stores three integers, but functions mostly like an array. The reason I remember first making this was to implement our own hash and equals method so we could properly store them in the HashMap for gameKnowledge. Should we revert to arrays and find a different solution?
