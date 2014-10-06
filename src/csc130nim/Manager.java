@@ -57,8 +57,8 @@ public class Manager implements Serializable {
 				}
 				if(GameEnded())
 				{
-					p1.gameEnded();
-					p2.gameEnded();
+					p1.notifyGameEnded();
+					p2.notifyGameEnded();
 					playing = false;
 				}
 			}
@@ -98,7 +98,6 @@ public class Manager implements Serializable {
     }
 
     private int handleInput(String readLine) {
-		// TODO Auto-generated method stub
 		return Integer.parseInt(readLine);
 	}
 
@@ -124,11 +123,7 @@ public class Manager implements Serializable {
 	
 	public boolean GameEnded()
 	{
-		if(gameBoard.get(0) == 0 && gameBoard.get(1) == 0 && gameBoard.get(2) == 0)
-		{
-			return true;
-		}
-		return false;
-	}
+        return gameBoard.get(0) == 0 && gameBoard.get(1) == 0 && gameBoard.get(2) == 0;
+    }
 
 }

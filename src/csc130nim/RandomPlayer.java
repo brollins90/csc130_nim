@@ -18,7 +18,7 @@ public class RandomPlayer extends Player{
 	}
 
 	@Override
-	public void gameEnded() {
+	public void notifyGameEnded() {
 		// TODO Auto-generated method stub
 		
 	}

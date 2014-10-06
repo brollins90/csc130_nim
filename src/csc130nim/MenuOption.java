@@ -1,7 +1,5 @@
 package csc130nim;
 
-import java.util.HashMap;
-
 /**
  * Created by Stephen on 9/29/2014.
  * In project: csc130_nim
@@ -24,17 +22,19 @@ public enum MenuOption {
     EvE("AI vs. AI", 3) {
 		@Override
 		public void execute(Manager manager) {
-			for(int i = 0; i < 10; i++)
-			{
-				System.out.println("Playing AI vs AI game...");
-				manager.StartGame(new RandomPlayer(), new RandomPlayer());
-			}
-		}
-	}, // Random v Random
+            int numGameIterations = 10;
+            System.out.println("Running " + numGameIterations + " bot games.");
+            for (int i = 0; i < numGameIterations; i++) {
+                System.out.println("Playing AI vs AI game...");
+                manager.StartGame(new RandomPlayer(), new RandomPlayer());
+            }
+        }
+    }, // Random v Random
     RvR("Rand vs. Rand", 4) {
 		@Override
 		public void execute(Manager manager) {
-			for(int i = 0; i < 100; i++)
+            int numGameIterations = 100;
+            for(int i = 0; i < numGameIterations; i++)
 			{
 				System.out.println("Playing Rand vs Rand game...");
 				manager.StartGame(new RandomPlayer(), new RandomPlayer());
@@ -61,6 +61,7 @@ public enum MenuOption {
     private final int retValue;
 
     MenuOption(String legibleName, int value) {
+        assert legibleName != null;
         this.readableName = legibleName;
         this.retValue = value;
     }

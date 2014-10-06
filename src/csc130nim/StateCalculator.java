@@ -1,14 +1,9 @@
 package csc130nim;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
 
 public class StateCalculator {
 
@@ -20,9 +15,9 @@ public class StateCalculator {
 //		}
 //	}
 
-	public static void calculateStates(HashMap<Board, StateContainer> gameKnowledge, ArrayList<Board> gameTurns) {
+	public static void calculateStates(Map<Board, StateContainer> gameKnowledge, List<Board> gameTurns) {
 		boolean firstPlayer = true;
-		boolean firstWin = (gameTurns.size() % 2 == 0 ? true : false);
+		boolean firstWin = (gameTurns.size() % 2 == 0);
 		int secondTurn = gameTurns.size() / 2;
 		int firstTurn = (gameTurns.size() % 2 == 0 ? secondTurn : (gameTurns.size() / 2) + 1);
 
@@ -35,8 +30,8 @@ public class StateCalculator {
 			if (gameKnowledge.get(previousBoard) != null) {
 				StateContainer possible = gameKnowledge.get(previousBoard);
 				if (possible.contains(currentBoard)) {
-					boolean test = possible.contains(currentBoard);
-					int a = possible.indexOf(currentBoard);
+//					boolean test = possible.contains(currentBoard);
+//					int a = possible.indexOf(currentBoard);
 					possible.get(possible.indexOf(currentBoard)).addValue(value);
 				} else {
 					possible.add(new MeanState(currentBoard, value));
@@ -102,7 +97,7 @@ public class StateCalculator {
 		return gameKnowledge;
 	}
 
-	public static void save(HashMap<Board, StateContainer> gameKnowledge) {
+	public static void save(Map<Board, StateContainer> gameKnowledge) {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("learning.data"));
 			oos.writeObject(gameKnowledge);

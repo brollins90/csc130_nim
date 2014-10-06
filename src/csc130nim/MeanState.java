@@ -1,7 +1,6 @@
 package csc130nim;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 public class MeanState implements Serializable, Comparable<MeanState> {
 
@@ -10,26 +9,27 @@ public class MeanState implements Serializable, Comparable<MeanState> {
 	private double value;
 	
 	public MeanState(){}
-	public MeanState(Board board)
-	{
-		this.board = board;
-		this.timesSeen = 1;
-		this.value = 0;
-	}
 	public MeanState(Board board, double value)
-	{
-		this.board = board;
-		this.timesSeen = 1;
-		this.value = value;
-	}
-	
-	public Board getBoard() {
+    {
+        assert board != null;
+        this.board = board;
+        this.timesSeen = 1;
+        this.value = value;
+    }
+    public MeanState(Board board)
+    {
+        this(board, 0);
+    }
+
+    public Board getBoard() {
 		return board;
 	}
 	public void setBoard(Board board) {
-		this.board = board;
-	}
-	public int getTimesSeen() {
+        assert board != null;
+        this.board = board;
+    }
+
+    public int getTimesSeen() {
 		return timesSeen;
 	}
 	public void setTimesSeen(int timesSeen) {
@@ -59,14 +59,15 @@ public class MeanState implements Serializable, Comparable<MeanState> {
 	//I honestly don't remember this override or if it is even used, but I'll leave it here for now. David
 	@Override
 	public int compareTo(MeanState o) {
-		int compareVal = 1;
-		if (this.board.get(0) == o.board.get(0) && this.board.get(1) == o.board.get(1) && this.board.get(2) == o.board.get(2)) {
-			compareVal = 0;
-		} 
-		return compareVal;
-	}
-	
-	@Override
+        assert o != null;
+        int compareVal = 1;
+        if (this.board.get(0) == o.board.get(0) && this.board.get(1) == o.board.get(1) && this.board.get(2) == o.board.get(2)) {
+            compareVal = 0;
+        }
+        return compareVal;
+    }
+
+    @Override
 	public boolean equals(Object obj) {
 
 		if (obj instanceof MeanState)

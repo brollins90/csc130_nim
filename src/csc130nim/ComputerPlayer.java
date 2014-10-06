@@ -2,12 +2,13 @@ package csc130nim;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class ComputerPlayer extends Player {
 
 	public static HashMap<Board, StateContainer> gameKnowledge = StateCalculator.load();
-	private ArrayList<Board> gameTurns = new ArrayList<>();
+	private List<Board> gameTurns;
 	
 	private Board board = Manager.gameBoard;
 	private Random rand = new Random();
@@ -15,7 +16,7 @@ public class ComputerPlayer extends Player {
 	private int row = -1, count = -1;
 	
 	public ComputerPlayer() {
-		gameTurns = new ArrayList<>();
+        gameTurns = new ArrayList<>();
 	}
 
 	/**
@@ -50,22 +51,22 @@ public class ComputerPlayer extends Player {
 		gameTurns.add(board.clone());
 
 		Board goal = goal();
-		if (goal != null) {
-			if (goal.get(0) < board.get(0)) {
-				row = 1;
-				count = board.get(0) - goal.get(0);
-			} else if (goal.get(1) < board.get(1)) {
-				row = 2;
-				count = board.get(1) - goal.get(1);
-			} else if (goal.get(2) < board.get(2)) {
-				row = 3;
-				count = board.get(2) - goal.get(2);
-			}
-		} else {
-			row = rand.nextInt(3) + 1;
-			count = rand.nextInt(5);
-		}
-	}
+        if (goal == null) {
+            row = rand.nextInt(3) + 1;
+            count = rand.nextInt(5);
+        } else {
+            if (goal.get(0) < board.get(0)) {
+                row = 1;
+                count = board.get(0) - goal.get(0);
+            } else if (goal.get(1) < board.get(1)) {
+                row = 2;
+                count = board.get(1) - goal.get(1);
+            } else if (goal.get(2) < board.get(2)) {
+                row = 3;
+                count = board.get(2) - goal.get(2);
+            }
+        }
+    }
 
 	/**
 	 * View all the boards that it knows about and save the one that we want as our goal
@@ -90,7 +91,7 @@ public class ComputerPlayer extends Player {
 	}
 
 	@Override
-	public void gameEnded() {
+	public void notifyGameEnded() {
 		StateCalculator.calculateStates(gameKnowledge, gameTurns);
 		StateCalculator.save(gameKnowledge);
 	}

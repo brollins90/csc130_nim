@@ -30,6 +30,7 @@ public class HumanPlayer extends Player {
      */
     private int promptBasicInteger(String append) {
 
+        assert append != null;
         System.out.println("Please input " + append);
 
         int i = 0;
@@ -69,7 +70,7 @@ public class HumanPlayer extends Player {
     }
 
 	@Override
-	public void gameEnded() {
+	public void notifyGameEnded() {
 		// TODO print an end screen
 	}
 }

@@ -12,7 +12,7 @@ public abstract class Player {
 	public Player() {
 		
 	}
-	public abstract void gameEnded();
+	public abstract void notifyGameEnded();
 	public abstract int getRow();
 	public abstract int getNumberToRemove();
 }

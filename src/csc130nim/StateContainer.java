@@ -18,7 +18,7 @@ public class StateContainer extends ArrayList<MeanState> implements Serializable
 		
 		return ret;
 	}
-	
+
 	public int indexOf(Board board)
 	{
 		int index = -1;
