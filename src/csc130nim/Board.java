@@ -67,14 +67,8 @@ public class Board implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Board other = (Board) obj;
-		if (a != other.a)
-			return false;
-		if (b != other.b)
-			return false;
-		if (c != other.c)
-			return false;
-		return true;
-	}
+        return a == other.a && b == other.b && c == other.c;
+    }
 	
 	@Override
 	public Board clone()
