@@ -1,17 +1,9 @@
 package csc130nim;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -44,7 +36,7 @@ public class Manager implements Serializable {
 		Boolean playing = true;
 		Boolean playerOneCurrent = true;
 
-		int row = -3, count = -3;
+		int row, count;
 		
 		while(playing) {
 			Player current = (playerOneCurrent) ? p1 : p2;
@@ -75,11 +67,11 @@ public class Manager implements Serializable {
 
     public void printOpeningMenu() {
         MenuOption[] enumValues = MenuOption.values();
-        
+
 //        load();
 //        checkforduplicate();
 //        checkInternalDuplicates();
-        
+
         while(true)
         {
 	        for (int i = 0; i < enumValues.length; i++) {
@@ -112,7 +104,7 @@ public class Manager implements Serializable {
 
 	public void removePieces(int row, int toRemove)
 	{
-		if(row > 3 || row < 0)
+		if(row > 3 || row < 0) // the game will never have more than 3 rows
 			throw new IllegalArgumentException("Tried to pick a nonexistant row.");
 		else
 		{
@@ -138,7 +130,5 @@ public class Manager implements Serializable {
 		}
 		return false;
 	}
-	
-	
-	
+
 }
