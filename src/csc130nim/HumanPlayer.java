@@ -67,4 +67,9 @@ public class HumanPlayer extends Player {
     	
     	System.out.println(line);
     }
+
+	@Override
+	public void gameEnded() {
+		// TODO print an end screen
+	}
 }

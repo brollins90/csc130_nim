@@ -19,9 +19,6 @@ public class Manager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	public static Board gameBoard = new Board();
-	public static HashMap<Board, StateContainer> gameKnowledge = new HashMap<>();
-	private ArrayList<Board> gameTurns = new ArrayList<>();
-	
 	
 	/**
 	 * Create a Manager and instantiate a new game
@@ -39,9 +36,6 @@ public class Manager implements Serializable {
 	
 	public void NewGame() {
 		setBoard(3, 5, 7);
-		
-		gameTurns = new ArrayList<>();
-		gameTurns.add(gameBoard.clone());
 	}
 	
 	public void StartGame(Player p1, Player p2) {
@@ -49,19 +43,14 @@ public class Manager implements Serializable {
 		NewGame();
 		Boolean playing = true;
 		Boolean playerOneCurrent = true;
-				
-		StateContainer firstMoveTest = gameKnowledge.get(gameBoard);
 
-		int row = -3;
-		int count = -3;
+		int row = -3, count = -3;
 		
 		while(playing) {
 			Player current = (playerOneCurrent) ? p1 : p2;
 			System.out.println(playerOneCurrent ? "Player One: " : "Player Two: ");
 			boolean completedMove = false;
 
-
-			
 			while(!completedMove) {
 				
 				try {
@@ -76,16 +65,10 @@ public class Manager implements Serializable {
 				}
 				if(GameEnded())
 				{
-					calculateStates();
-					save();
+					p1.gameEnded();
+					p2.gameEnded();
 					playing = false;
 				}
-			}
-			
-			if(GameEnded())
-			{
-				calculateStates();
-				playing = false;
 			}
 		}
 	}
@@ -93,9 +76,9 @@ public class Manager implements Serializable {
     public void printOpeningMenu() {
         MenuOption[] enumValues = MenuOption.values();
         
-        load();
-        checkforduplicate();
-        checkInternalDuplicates();
+//        load();
+//        checkforduplicate();
+//        checkInternalDuplicates();
         
         while(true)
         {
@@ -137,7 +120,7 @@ public class Manager implements Serializable {
 			if(toRemove <= gameBoard.get(zeroRow) && toRemove > 0)
 			{
 				gameBoard.set(zeroRow, (gameBoard.get(zeroRow) - toRemove));
-				gameTurns.add(gameBoard.clone());
+//				gameTurns.add(gameBoard.clone());
 //				PlayerOne = !PlayerOne;
 			}
 			else
@@ -156,133 +139,6 @@ public class Manager implements Serializable {
 		return false;
 	}
 	
-	public void testReturnTurns()
-	{
-		boolean player = true;
-		for(Board turn : gameTurns)
-		{			
-			System.out.println(((player) ? 1 : 2) + ": " + turn.get(0) + ", " + turn.get(1) + ", " + turn.get(2));
-			player = !player;
-		}
-	}
 	
-	public void calculateStates()
-	{
-		boolean firstPlayer = true;
-		boolean firstWin = (gameTurns.size() % 2 == 0 ? true : false);
-		int secondTurn = gameTurns.size() / 2;
-		int firstTurn = (gameTurns.size() % 2 == 0 ? secondTurn : (gameTurns.size() / 2) + 1);
-				
-		for(int i = 1; i < gameTurns.size(); i++)
-		{			
-			Board previousBoard = gameTurns.get(i-1);
-			Board currentBoard = gameTurns.get(i);
-			firstPlayer = !firstPlayer;
-			double value = ((i/2 + 1) / ((double)(firstPlayer ? firstTurn : secondTurn))) * (firstPlayer == firstWin ? 1 : -1);
-			//Here is where you would store the states into the machine learning.
-			if(gameKnowledge.get(previousBoard) != null)
-			{
-				StateContainer possible = gameKnowledge.get(previousBoard);
-				if(possible.contains(currentBoard))
-				{
-					boolean test = possible.contains(currentBoard);
-					int a = possible.indexOf(currentBoard);
-					possible.get(possible.indexOf(currentBoard)).addValue(value);
-				}
-				else
-				{
-					possible.add(new MeanState(currentBoard, value));
-				}
-			}
-			else
-			{
-				StateContainer contain = new StateContainer();
-				contain.add(new MeanState(currentBoard, value));
-				gameKnowledge.put(previousBoard, contain);
-			}
-		}
-	}
-	
-	public void checkforduplicate()
-	{
-		Set<Board> holder = gameKnowledge.keySet();
-		int duplicates = 0;
-		for(Board board : holder)
-		{
-			int count = 0;
-			for(Board second : holder)
-			{
-				if(board.get(0) == second.get(0) && board.get(1) == second.get(1) && board.get(2) == second.get(2))
-				{
-					count++;
-				}
-			}
-			if(count > 1)
-			{
-				duplicates++;
-			}
-		}
-		
-		System.out.println("Number of duplicate keys: " + duplicates);
-	}
-	
-	public void checkInternalDuplicates()
-	{
-		Set<Board> holder = gameKnowledge.keySet();
-		int duplicates = 0;
-		for(Board board : holder)
-		{
-			
-			for(MeanState s : gameKnowledge.get(board))
-			{
-				int count = 0;
-				for(MeanState second : gameKnowledge.get(board))
-				{
-					if(s.getBoard() == second.getBoard() ){
-						count++;
-					}
-				}
-				
-				if(count > 1)
-				{
-					duplicates++;
-				}
-			}
-			
-		}
-		
-		System.out.println("Number of duplicate keys: " + duplicates);
-	}
-	
-	public void load()
-	{
-		try {
-			ObjectInputStream ois;
-			ois = new ObjectInputStream(new FileInputStream("learning.data"));
-			gameKnowledge = (HashMap<Board, StateContainer>)ois.readObject();
-			ois.close();
-		} catch (FileNotFoundException e) {
-			gameKnowledge = new HashMap<>();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void save()
-	{
-		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("learning.data"));
-			oos.writeObject(gameKnowledge);
-			oos.flush();
-			oos.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 }

@@ -17,6 +17,12 @@ public class RandomPlayer extends Player{
 		return rand.nextInt(8);
 	}
 
+	@Override
+	public void gameEnded() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 }

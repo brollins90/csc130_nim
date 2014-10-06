@@ -52,7 +52,7 @@ public enum MenuOption {
 		@Override
 		public void execute(Manager manager) {
 			System.out.println("Thanks for playing");
-			HashMap<Board, StateContainer> test = Manager.gameKnowledge;
+//			HashMap<Board, StateContainer> test = Manager.gameKnowledge;
 			System.exit(0);
 		}
 	};
