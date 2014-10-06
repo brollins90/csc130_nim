@@ -31,12 +31,9 @@ public class StateCalculator {
 			Board currentBoard = gameTurns.get(i);
 			firstPlayer = !firstPlayer;
 			double value = ((i / 2 + 1) / ((double) (firstPlayer ? firstTurn : secondTurn))) * (firstPlayer == firstWin ? 1 : -1);
-			// Here is where you would store the states into the machine learning.
 			if (gameKnowledge.get(previousBoard) != null) {
 				StateContainer possible = gameKnowledge.get(previousBoard);
 				if (possible.contains(currentBoard)) {
-					boolean test = possible.contains(currentBoard);
-					int a = possible.indexOf(currentBoard);
 					possible.get(possible.indexOf(currentBoard)).addValue(value);
 				} else {
 					possible.add(new MeanState(currentBoard, value));
@@ -48,46 +45,6 @@ public class StateCalculator {
 			}
 		}
 	}
-
-//	public void checkforduplicate() {
-//		Set<Board> holder = gameKnowledge.keySet();
-//		int duplicates = 0;
-//		for (Board board : holder) {
-//			int count = 0;
-//			for (Board second : holder) {
-//				if (board.get(0) == second.get(0) && board.get(1) == second.get(1) && board.get(2) == second.get(2)) {
-//					count++;
-//				}
-//			}
-//			if (count > 1) {
-//				duplicates++;
-//			}
-//		}
-//
-//		System.out.println("Number of duplicate keys: " + duplicates);
-//	}
-
-//	public void checkInternalDuplicates() {
-//		Set<Board> holder = gameKnowledge.keySet();
-//		int duplicates = 0;
-//		for (Board board : holder) {
-//
-//			for (MeanState s : gameKnowledge.get(board)) {
-//				int count = 0;
-//				for (MeanState second : gameKnowledge.get(board)) {
-//					if (s.getBoard() == second.getBoard()) {
-//						count++;
-//					}
-//				}
-//
-//				if (count > 1) {
-//					duplicates++;
-//				}
-//			}
-//		}
-//
-//		System.out.println("Number of duplicate keys: " + duplicates);
-//	}
 
 	public static HashMap<Board, StateContainer> load() {
 		HashMap<Board, StateContainer> gameKnowledge;

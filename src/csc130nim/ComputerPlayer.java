@@ -2,6 +2,7 @@ package csc130nim;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ComputerPlayer extends Player {
@@ -73,12 +74,14 @@ public class ComputerPlayer extends Player {
 	 * @return The board state with the best value
 	 */
 	public Board goal() {
-		StateContainer container = gameKnowledge.get(board);
+		Iterator<MeanState> container = gameKnowledge.get(board).iterator();
 		Board goodGoal = null;
 		double val = -2;
 
 		if (container != null) {
-			for (MeanState s : container) {
+			while(container.hasNext())
+			{
+				MeanState s = container.next();
 				if (s.getValue() > val) {
 					val = s.getValue();
 					goodGoal = s.getBoard();
