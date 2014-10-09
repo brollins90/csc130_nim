@@ -7,13 +7,13 @@ public class RandomPlayer implements Player{
 	private Random rand = new Random();
 	
 	@Override
-	public int getRow() {
+	public int getRow(Board board) {
 		// TODO Auto-generated method stub
 		return rand.nextInt(4);
 	}
 
 	@Override
-	public int getNumberToRemove() {
+	public int getNumberToRemove(Board board) {
 		return rand.nextInt(8);
 	}
 

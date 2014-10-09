@@ -12,7 +12,7 @@ public class ComputerPlayer implements Player {
 	public static Map<Board, StateContainer> gameKnowledge = StateCalculator.load();
 	private List<Board> gameTurns;
 	
-	private Board board = Manager.gameBoard;
+	private Board board;
 	private Random rand = new Random();
 
 	private int row = -1, count = -1;
@@ -25,9 +25,9 @@ public class ComputerPlayer implements Player {
 	 * Returns the row the the AI chooses
 	 */
 	@Override
-	public int getRow() {
+	public int getRow(Board board) {
 		if (row == -1)
-			decide();
+			decide(board);
 		int decision = row;
 		row = -1;
 		return decision;
@@ -37,9 +37,9 @@ public class ComputerPlayer implements Player {
 	 * Returns the number to remove from the previously selected row
 	 */
 	@Override
-	public int getNumberToRemove() {
+	public int getNumberToRemove(Board board) {
 		if (count == -1)
-			decide();
+			decide(board);
 		int decision = count;
 		count = -1;
 		return decision;
@@ -48,8 +48,8 @@ public class ComputerPlayer implements Player {
 	/**
 	 * Makes a choice for the computer to return later
 	 */
-	public void decide() {
-		board = Manager.gameBoard;
+	public void decide(Board gameBoard) {
+		board = gameBoard;
 		gameTurns.add(board.clone());
 
 		Board goal = goal();

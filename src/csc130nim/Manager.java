@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class Manager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	public static Board gameBoard = new Board();
+	private Board gameBoard = new Board();
     private final BufferedReader reader =
             new BufferedReader(new InputStreamReader(System.in));
 	
@@ -50,8 +50,8 @@ public class Manager implements Serializable {
 			while(!completedMove) {
 				
 				try {
-					row = current.getRow();
-					count = current.getNumberToRemove();
+					row = current.getRow(gameBoard);
+					count = current.getNumberToRemove(gameBoard);
 					removePieces(row, count);
 					completedMove = true;
 					playerOneCurrent = !playerOneCurrent;

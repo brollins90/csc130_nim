@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 
 public class HumanPlayer implements Player {
 
-    protected final BufferedReader reader =
+    private final BufferedReader reader =
             new BufferedReader(new InputStreamReader(System.in));
 	/**
 	 * Asks the player for a row to use
 	 */
 	@Override
-	public int getRow() {
-		printGameBoard();
+	public int getRow(Board board) {
+		printGameBoard(board);
 		
         int rowChoice = promptBasicInteger("the row of choice");
         return rowChoice;
@@ -23,7 +23,7 @@ public class HumanPlayer implements Player {
 	 * Asks the player for the number of pieces to remove in the previously selected row
 	 */
 	@Override
-	public int getNumberToRemove() {
+	public int getNumberToRemove(Board board) {
         int numChoice = promptBasicInteger("the number to remove from that row");
         return numChoice;
     }
@@ -50,22 +50,22 @@ public class HumanPlayer implements Player {
     /**
      * Prints the board for the player
      */
-    private void printGameBoard() {
+    private void printGameBoard(Board gameBoard) {
     	String line = "";
     	line += "1:";
-    	for (int i = 0; i < Manager.gameBoard.get(0); i++) {
+    	for (int i = 0; i < gameBoard.get(0); i++) {
     		line += " X";
     	}
     	line += "\n";
     	
     	line += "2:";
-    	for (int i = 0; i < Manager.gameBoard.get(1); i++) {
+    	for (int i = 0; i < gameBoard.get(1); i++) {
     		line += " X";
     	}
     	line += "\n";
     	
     	line += "3:";
-    	for (int i = 0; i < Manager.gameBoard.get(2); i++) {
+    	for (int i = 0; i < gameBoard.get(2); i++) {
     		line += " X";
     	}
     	line += "\n";

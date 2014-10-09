@@ -7,6 +7,6 @@ public interface Player {
 
     // Hold a state passed in with the constructor
 	public abstract void notifyGameEnded();
-	public abstract int getRow();
-	public abstract int getNumberToRemove();
+	public abstract int getRow(Board board);
+	public abstract int getNumberToRemove(Board board);
 }
