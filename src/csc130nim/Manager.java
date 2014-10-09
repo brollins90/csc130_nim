@@ -15,7 +15,6 @@ public class Manager implements Serializable {
 	private Board gameBoard = new Board();
     private final BufferedReader reader =
             new BufferedReader(new InputStreamReader(System.in));
-	
 	/**
 	 * Create a Manager and instantiate a new game
 	 */
@@ -79,7 +78,7 @@ public class Manager implements Serializable {
 	            System.out.println(current.getRetValue() + ". " + current.getReadableName());
 	        }
 	        try {
-				int choice = handleInput(reader.readLine());
+				int choice = handleInput(this.reader.readLine());
 				if(choice >= 0 && choice < enumValues.length) {
 	                List<MenuOption> collectedOptions = Arrays.asList(enumValues)
 	                        .stream()

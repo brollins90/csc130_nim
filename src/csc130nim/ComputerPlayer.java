@@ -90,7 +90,6 @@ public class ComputerPlayer implements Player {
 				}
 			}
 		}
-
 		return goodGoal;
 	}
 

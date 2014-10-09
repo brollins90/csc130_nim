@@ -6,8 +6,10 @@ import java.io.InputStreamReader;
 
 public class HumanPlayer implements Player {
 
+
     private final BufferedReader reader =
             new BufferedReader(new InputStreamReader(System.in));
+
 	/**
 	 * Asks the player for a row to use
 	 */
