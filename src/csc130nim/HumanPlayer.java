@@ -1,9 +1,15 @@
 package csc130nim;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer implements Player {
 
+    private static final BufferedReader reader =
+            new BufferedReader(new InputStreamReader(System.in));
+
+    // Hold a state passed in with the constructor
 	/**
 	 * Asks the player for a row to use
 	 */

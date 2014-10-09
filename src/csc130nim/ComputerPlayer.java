@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 
-public class ComputerPlayer extends Player {
+public class ComputerPlayer implements Player {
 
 	public static HashMap<Board, StateContainer> gameKnowledge = StateCalculator.load();
 	private List<Board> gameTurns;
@@ -89,7 +89,6 @@ public class ComputerPlayer extends Player {
 				}
 			}
 		}
-
 		return goodGoal;
 	}
 
