@@ -1,9 +1,13 @@
 package csc130nim;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer implements Player {
 
+    protected final BufferedReader reader =
+            new BufferedReader(new InputStreamReader(System.in));
 	/**
 	 * Asks the player for a row to use
 	 */
@@ -71,6 +75,6 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void notifyGameEnded() {
-		// TODO print an end screen
+		System.out.println("The game has ended");
 	}
 }

@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 
-public class ComputerPlayer extends Player {
+public class ComputerPlayer implements Player {
 
-	public static HashMap<Board, StateContainer> gameKnowledge = StateCalculator.load();
+	public static Map<Board, StateContainer> gameKnowledge = StateCalculator.load();
 	private List<Board> gameTurns;
 	
 	private Board board = Manager.gameBoard;

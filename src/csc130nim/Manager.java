@@ -1,6 +1,8 @@
 package csc130nim;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +13,8 @@ public class Manager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	public static Board gameBoard = new Board();
+    private final BufferedReader reader =
+            new BufferedReader(new InputStreamReader(System.in));
 	
 	/**
 	 * Create a Manager and instantiate a new game
@@ -75,7 +79,7 @@ public class Manager implements Serializable {
 	            System.out.println(current.getRetValue() + ". " + current.getReadableName());
 	        }
 	        try {
-				int choice = handleInput(Player.reader.readLine());
+				int choice = handleInput(reader.readLine());
 				if(choice >= 0 && choice < enumValues.length) {
 	                List<MenuOption> collectedOptions = Arrays.asList(enumValues)
 	                        .stream()

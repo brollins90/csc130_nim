@@ -84,12 +84,12 @@ public class StateCalculator {
 //		System.out.println("Number of duplicate keys: " + duplicates);
 //	}
 
-	public static HashMap<Board, StateContainer> load() {
-		HashMap<Board, StateContainer> gameKnowledge;
+	public static Map<Board, StateContainer> load() {
+		Map<Board, StateContainer> gameKnowledge;
 		try {
 			ObjectInputStream ois;
 			ois = new ObjectInputStream(new FileInputStream("learning.data"));
-			gameKnowledge = (HashMap<Board, StateContainer>) ois.readObject();
+			gameKnowledge = (Map<Board, StateContainer>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
 			gameKnowledge = new HashMap<>();

@@ -2,7 +2,7 @@ package csc130nim;
 
 import java.util.Random;
 
-public class RandomPlayer extends Player{
+public class RandomPlayer implements Player{
 
 	private Random rand = new Random();
 	
