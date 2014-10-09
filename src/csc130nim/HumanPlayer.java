@@ -9,7 +9,6 @@ public class HumanPlayer implements Player {
     private static final BufferedReader reader =
             new BufferedReader(new InputStreamReader(System.in));
 
-    // Hold a state passed in with the constructor
 	/**
 	 * Asks the player for a row to use
 	 */
@@ -77,6 +76,6 @@ public class HumanPlayer implements Player {
 
 	@Override
 	public void notifyGameEnded() {
-		// TODO print an end screen
+		System.out.println("The game has ended");
 	}
 }

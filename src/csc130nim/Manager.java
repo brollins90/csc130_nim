@@ -14,7 +14,7 @@ public class Manager implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static Board gameBoard = new Board();
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	
+
 	/**
 	 * Create a Manager and instantiate a new game
 	 */

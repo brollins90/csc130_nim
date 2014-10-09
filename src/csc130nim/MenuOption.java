@@ -26,7 +26,7 @@ public enum MenuOption {
             System.out.println("Running " + numGameIterations + " bot games.");
             for (int i = 0; i < numGameIterations; i++) {
                 System.out.println("Playing AI vs AI game...");
-                manager.StartGame(new RandomPlayer(), new RandomPlayer());
+                manager.StartGame(new ComputerPlayer(), new ComputerPlayer());
             }
         }
     }, // Random v Random
@@ -34,10 +34,11 @@ public enum MenuOption {
 		@Override
 		public void execute(Manager manager) {
             int numGameIterations = 100;
+            Player player1 = new RandomPlayer(), player2 = new RandomPlayer();
             for(int i = 0; i < numGameIterations; i++)
 			{
 				System.out.println("Playing Rand vs Rand game...");
-				manager.StartGame(new RandomPlayer(), new RandomPlayer());
+				manager.StartGame(player1, player2);
 			}
 		}
 	}, // Player v Random
@@ -75,6 +76,4 @@ public enum MenuOption {
     }
 
 	public abstract void execute(Manager manager);
-
-    //        public abstract void execute();
 }
