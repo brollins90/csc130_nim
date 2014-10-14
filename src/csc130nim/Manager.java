@@ -15,6 +15,9 @@ public class Manager implements Serializable {
 	private Board gameBoard = new Board();
     private final BufferedReader reader =
             new BufferedReader(new InputStreamReader(System.in));
+    private final int FIRST_ROW_MAX = 3;
+    private final int SECOND_ROW_MAX = 5;
+    private final int THIRD_ROW_MAX = 7;
 	/**
 	 * Create a Manager and instantiate a new game
 	 */
@@ -30,7 +33,7 @@ public class Manager implements Serializable {
 	}
 	
 	public void NewGame() {
-		setBoard(3, 5, 7);
+		setBoard(FIRST_ROW_MAX, SECOND_ROW_MAX, THIRD_ROW_MAX);
 	}
 	
 	public void StartGame(Player p1, Player p2) {
@@ -38,9 +41,7 @@ public class Manager implements Serializable {
 		NewGame();
 		Boolean playing = true;
 		Boolean playerOneCurrent = true;
-
-		int row, count;
-		
+	
 		while(playing) {
 			Player current = (playerOneCurrent) ? p1 : p2;
 			System.out.println(playerOneCurrent ? "Player One: " : "Player Two: ");
@@ -49,8 +50,8 @@ public class Manager implements Serializable {
 			while(!completedMove) {
 				
 				try {
-					row = current.getRow(gameBoard);
-					count = current.getNumberToRemove(gameBoard);
+					int row = current.getRow(gameBoard);
+					int count = current.getNumberToRemove(gameBoard);
 					removePieces(row, count);
 					completedMove = true;
 					playerOneCurrent = !playerOneCurrent;
