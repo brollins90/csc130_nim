@@ -2,36 +2,49 @@ package csc130nim;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class StateContainer extends ArrayList<MeanState> implements Serializable{
+public class StateContainer implements Serializable{
+	
+	private ArrayList<MeanState> array;
+	
+	
+	
+	public StateContainer() {
+		array = new ArrayList<MeanState>();
+	}
 
-	public boolean contains(Board board)
-	{
+	public void add(MeanState toAdd) {
+		array.add(toAdd);
+	}
+	
+	public boolean contains(Board board) {
 		boolean ret = false;
-		for(MeanState s : this)
-		{
-			if(s.getBoard().equals(board))
-			{
+		for(MeanState s : array) {
+			if(s.getBoard().equals(board)) {
 				ret = true;
 			}
 		}
-		
 		return ret;
 	}
 
-	public int indexOf(Board board)
-	{
+	public MeanState get(int index) {
+		return array.get(index);
+	}
+
+	public int indexOf(Board board) {
 		int index = -1;
 		
-		for(int i = 0; i < this.size(); i++)
-		{
-			if(this.get(i).getBoard().equals(board))
-			{
+		for(int i = 0; i < array.size(); i++) {
+			if(array.get(i).getBoard().equals(board)) {
 				return i;
 			}
 		}
-		
 		return index;
+	}
+	
+	public Iterator<MeanState> iterator() {
+		return this.array.iterator();
 	}
 	
 	@Override
@@ -40,7 +53,7 @@ public class StateContainer extends ArrayList<MeanState> implements Serializable
     {
         StringBuilder toReturn = new StringBuilder("");
 
-        for (MeanState s : this)
+        for (MeanState s : array)
         {
             toReturn.append(s.toString()).append(", ");
         }
