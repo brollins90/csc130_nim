@@ -12,7 +12,6 @@ public class ComputerPlayer implements Player {
 	public static Map<Board, StateContainer> gameKnowledge = StateCalculator.load();
 	private List<Board> gameTurns;
 	
-	private Board board;
 	private Random rand = new Random();
 
 	private int row = -1, count = -1;
@@ -49,23 +48,22 @@ public class ComputerPlayer implements Player {
 	 * Makes a choice for the computer to return later
 	 */
 	public void decide(Board gameBoard) {
-		board = gameBoard;
-		gameTurns.add(board.clone());
+		gameTurns.add(gameBoard.clone());
 
-		Board goal = goal();
+		Board goal = goal(gameBoard);
         if (goal == null) {
             row = rand.nextInt(3) + 1;
             count = rand.nextInt(5);
         } else {
-            if (goal.get(0) < board.get(0)) {
+            if (goal.get(0) < gameBoard.get(0)) {
                 row = 1;
-                count = board.get(0) - goal.get(0);
-            } else if (goal.get(1) < board.get(1)) {
+                count = gameBoard.get(0) - goal.get(0);
+            } else if (goal.get(1) < gameBoard.get(1)) {
                 row = 2;
-                count = board.get(1) - goal.get(1);
-            } else if (goal.get(2) < board.get(2)) {
+                count = gameBoard.get(1) - goal.get(1);
+            } else if (goal.get(2) < gameBoard.get(2)) {
                 row = 3;
-                count = board.get(2) - goal.get(2);
+                count = gameBoard.get(2) - goal.get(2);
             }
         }
     }
@@ -75,7 +73,7 @@ public class ComputerPlayer implements Player {
 	 * 
 	 * @return The board state with the best value
 	 */
-	public Board goal() {
+	public Board goal(Board board) {
 		Iterator<MeanState> container = gameKnowledge.get(board).iterator();
 		Board goodGoal = null;
 		double val = -2;

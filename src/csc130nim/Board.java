@@ -1,60 +1,56 @@
 package csc130nim;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Board implements Serializable{
 
-	private int a, b, c;
+	private int[] rowsWithPieces;
 	
 	public Board(){}
 	
-	public Board(int a, int b, int c)
+	public Board(int...a)
 	{
-		this.a = a;
-		this.b = b;
-		this.c = c;
+		rowsWithPieces = a;
 	}
 	
 	public int get(int index)
 	{
-		switch(index)
-		{
-		case(0):
-			return a;
-		case(1):
-			return b;
-		case(2):
-			return c;
-		default:
-			throw new IndexOutOfBoundsException();
-		}
+		return rowsWithPieces[index];
 	}
 
 	public void set(int index, int value)
 	{
-		switch(index)
-		{
-		case(0):
-			a = value;
-			break;
-		case(1):
-			b = value;
-			break;
-		case(2):
-			c = value;
-			break;
-		default:
-			throw new IndexOutOfBoundsException();
+		rowsWithPieces[index] = value;
+	}
+		
+	@Override
+	public Board clone()
+	{
+		int[] newBoard = new int[rowsWithPieces.length];
+		for(int i = 0; i < newBoard.length; i++){
+			newBoard[i] = rowsWithPieces[i];
 		}
+		
+		return new Board(newBoard);
 	}
 	
+	@Override
+	public String toString()
+	{
+        StringBuilder toReturn = new StringBuilder("");
+        for (int i : rowsWithPieces)
+        {
+            toReturn.append(i).append(", ");
+        }
+        return toReturn.toString();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + a;
-		result = prime * result + b;
-		result = prime * result + c;
+		result = prime * result + Arrays.hashCode(rowsWithPieces);
 		return result;
 	}
 
@@ -67,19 +63,9 @@ public class Board implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Board other = (Board) obj;
-        return a == other.a && b == other.b && c == other.c;
-    }
-	
-	@Override
-	public Board clone()
-	{
-		return new Board(a, b, c);
-	}
-	
-	@Override
-	public String toString()
-	{
-		return "[" + a + ", " + b + ", " + c + "]";
+		if (!Arrays.equals(rowsWithPieces, other.rowsWithPieces))
+			return false;
+		return true;
 	}
 	
 }
