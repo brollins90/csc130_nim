@@ -56,16 +56,19 @@ public class MeanState implements Serializable, Comparable<MeanState> {
 		return "[" + board.get(0) + ", " + board.get(1) + ", " + board.get(2) + "]; " + value;
 	}
 	
-	//I honestly don't remember this override or if it is even used, but I'll leave it here for now. David
 	@Override
 	public int compareTo(MeanState o) {
         assert o != null;
         int compareVal = 1;
-        if (this.board.get(0) == o.board.get(0) && this.board.get(1) == o.board.get(1) && this.board.get(2) == o.board.get(2)) {
+        if (thisEqualsOther(o)) {
             compareVal = 0;
         }
         return compareVal;
     }
+	
+	public boolean thisEqualsOther(MeanState o){
+		return this.board.get(0) == o.board.get(0) && this.board.get(1) == o.board.get(1) && this.board.get(2) == o.board.get(2);
+	}
 
     @Override
 	public boolean equals(Object obj) {

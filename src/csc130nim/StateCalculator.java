@@ -30,8 +30,6 @@ public class StateCalculator {
 			if (gameKnowledge.get(previousBoard) != null) {
 				StateContainer possible = gameKnowledge.get(previousBoard);
 				if (possible.contains(currentBoard)) {
-//					boolean test = possible.contains(currentBoard);
-//					int a = possible.indexOf(currentBoard);
 					possible.get(possible.indexOf(currentBoard)).addValue(value);
 				} else {
 					possible.add(new MeanState(currentBoard, value));
