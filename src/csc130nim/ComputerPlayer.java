@@ -1,11 +1,6 @@
 package csc130nim;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class ComputerPlayer implements Player {
 
@@ -51,28 +46,35 @@ public class ComputerPlayer implements Player {
 		gameTurns.add(gameBoard.clone());
 
 		Board goal = goal(gameBoard);
+        // If the potential "goal" is null, go random
         if (goal == null) {
             row = rand.nextInt(3) + 1;
             count = rand.nextInt(5);
-        } else {
+        }
+        else {
+            // Otherwise, get smart
             if (goal.get(0) < gameBoard.get(0)) {
                 row = 1;
                 count = gameBoard.get(0) - goal.get(0);
-            } else if (goal.get(1) < gameBoard.get(1)) {
+            }
+            else if (goal.get(1) < gameBoard.get(1)) {
                 row = 2;
                 count = gameBoard.get(1) - goal.get(1);
-            } else if (goal.get(2) < gameBoard.get(2)) {
+            }
+            else if (goal.get(2) < gameBoard.get(2)) {
                 row = 3;
                 count = gameBoard.get(2) - goal.get(2);
             }
         }
     }
 
-	/**
-	 * View all the boards that it knows about and save the one that we want as our goal
-	 * 
-	 * @return The board state with the best value
-	 */
+    /**
+     * /**
+     * View all the boards that it knows about and save the one that we want as our goal
+     *
+     * @param board The current state of the Game Board.
+     * @return The board state with the best value
+     */
 	public Board goal(Board board) {
 		Iterator<MeanState> container = gameKnowledge.get(board).iterator();
 		Board goodGoal = null;

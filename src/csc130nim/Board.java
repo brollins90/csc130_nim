@@ -5,11 +5,14 @@ import java.util.Arrays;
 
 public class Board implements Serializable{
 
-	private int[] rowsWithPieces;
+    private static final int DEFAULT_SIZE = 3;
+    private int[] rowsWithPieces;
 	
-	public Board(){}
-	
-	public Board(int...a)
+	public Board() {
+        rowsWithPieces = new int[DEFAULT_SIZE];
+    }
+
+    public Board(int...a)
 	{
 		rowsWithPieces = a;
 	}
@@ -56,16 +59,14 @@ public class Board implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+        boolean equals = (this == obj);
+        equals |= (obj == null);
+        equals |= (getClass() != obj.getClass());
+
 		Board other = (Board) obj;
-		if (!Arrays.equals(rowsWithPieces, other.rowsWithPieces))
-			return false;
-		return true;
+        equals |= (!Arrays.equals(rowsWithPieces, other.rowsWithPieces));
+
+        return equals;
 	}
 	
 }

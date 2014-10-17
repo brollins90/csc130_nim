@@ -69,16 +69,13 @@ public class Manager implements Serializable {
 		}
 	}
 
-    public void printOpeningMenu() {
+    public void presentMenu() {
         MenuOption[] enumValues = MenuOption.values();
 
         while(true)
         {
-	        for (int i = 0; i < enumValues.length; i++) {
-	            MenuOption current = enumValues[i];
-	            System.out.println(current.getRetValue() + ". " + current.getReadableName());
-	        }
-	        try {
+            printMenuOptions(enumValues);
+            try {
 				int choice = handleInput(this.reader.readLine());
 				if(choice >= 0 && choice < enumValues.length) {
 	                List<MenuOption> collectedOptions = Arrays.asList(enumValues)
@@ -93,6 +90,13 @@ public class Manager implements Serializable {
 			} catch (IOException e) {
 				System.err.println("The starter input was not parseable.");
 			}
+        }
+    }
+
+    private void printMenuOptions(MenuOption[] enumValues) {
+        for (int i = 0; i < enumValues.length; i++) {
+            MenuOption current = enumValues[i];
+            System.out.println(current.getRetValue() + ". " + current.getReadableName());
         }
     }
 
