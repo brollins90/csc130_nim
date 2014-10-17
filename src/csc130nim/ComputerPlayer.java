@@ -76,17 +76,18 @@ public class ComputerPlayer implements Player {
      * @return The board state with the best value
      */
 	public Board goal(Board board) {
-		Iterator<MeanState> container = gameKnowledge.get(board).iterator();
 		Board goodGoal = null;
-		double val = -2;
-
-		if (container != null) {
-			while(container.hasNext())
-			{
-				MeanState s = container.next();
-				if (s.getValue() > val) {
-					val = s.getValue();
-					goodGoal = s.getBoard();
+		if(gameKnowledge.get(board) != null) {
+			Iterator<MeanState> container = gameKnowledge.get(board).iterator();
+			double val = -2;
+			if (container != null) {
+				while(container.hasNext())
+				{
+					MeanState s = container.next();
+					if (s.getValue() > val) {
+						val = s.getValue();
+						goodGoal = s.getBoard();
+					}
 				}
 			}
 		}
