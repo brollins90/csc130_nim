@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class Manager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Board gameBoard = new Board();
+	private Board gameBoard;
     private final BufferedReader reader =
             new BufferedReader(new InputStreamReader(System.in));
     private final int FIRST_ROW_MAX = 3;
@@ -27,9 +27,7 @@ public class Manager implements Serializable {
 		
 	public void setBoard(int one, int two, int three)
 	{
-		gameBoard.set(0, one);
-		gameBoard.set(1, two);
-		gameBoard.set(2, three);
+		gameBoard = new Board(one, two, three);
 	}
 	
 	public void NewGame() {
