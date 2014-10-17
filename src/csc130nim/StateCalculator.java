@@ -21,9 +21,7 @@ public class StateCalculator {
 			double value = ((i / 2 + 1) / ((double) (firstPlayer ? firstTurn : secondTurn))) * (firstPlayer == firstWin ? 1 : -1);
 			// Here is where you would store the states into the machine learning.
 			if (gameKnowledge.get(previousBoard) == null) {
-				StateContainer contain = new StateContainer();
-				contain.add(new MeanState(currentBoard, value));
-				gameKnowledge.put(previousBoard, contain);
+				gameKnowledge.put(previousBoard, addNewState(currentBoard, value));
 			} else {				
 				StateContainer possible = gameKnowledge.get(previousBoard);
 				if (possible.contains(currentBoard)) {
@@ -33,6 +31,12 @@ public class StateCalculator {
 				}
 			}
 		}
+	}
+
+	private static StateContainer addNewState(Board currentBoard, double value){
+		StateContainer contain = new StateContainer();
+		contain.add(new MeanState(currentBoard, value));
+		return contain;
 	}
 
 	public static Map<Board, StateContainer> load() {
